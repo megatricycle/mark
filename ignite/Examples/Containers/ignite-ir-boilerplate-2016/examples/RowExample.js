@@ -1,14 +1,13 @@
-import React from 'react'
-import { View, Text, ListView } from 'react-native'
-import { connect } from 'react-redux'
+import React from 'react';
+import { View, Text, ListView } from 'react-native';
+import { connect } from 'react-redux';
 
 // Styles
-import styles from './Styles/RowExampleStyle'
+import styles from './Styles/RowExampleStyle';
 
 class RowExample extends React.Component {
-
   constructor (props) {
-    super(props)
+    super(props);
     // If you need scroll to bottom, consider http://bit.ly/2bMQ2BZ
 
     /* ***********************************************************
@@ -24,7 +23,7 @@ class RowExample extends React.Component {
       {title: 'Fifth Title', description: 'Fifth Description'},
       {title: 'Sixth Title', description: 'Sixth Description'},
       {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
+    ];
 
     /* ***********************************************************
     * STEP 2
@@ -32,15 +31,15 @@ class RowExample extends React.Component {
     * Make this function fast!  Perhaps something like:
     *   (r1, r2) => r1.id !== r2.id}
     *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    const rowHasChanged = (r1, r2) => r1 !== r2;
 
     // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
+    const ds = new ListView.DataSource({rowHasChanged});
 
     // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects)
-    }
+    };
   }
 
   /* ***********************************************************
@@ -57,7 +56,7 @@ class RowExample extends React.Component {
         <Text style={styles.boldLabel}>{rowData.title}</Text>
         <Text style={styles.label}>{rowData.description}</Text>
       </View>
-    )
+    );
   }
 
   /* ***********************************************************
@@ -81,14 +80,14 @@ class RowExample extends React.Component {
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
   _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   // Render a footer.
   _renderFooter = () => {
     return (
       <Text> - Footer - </Text>
-    )
+    );
   }
 
   render () {
@@ -103,19 +102,19 @@ class RowExample extends React.Component {
           pageSize={15}
         />
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(RowExample)
+export default connect(mapStateToProps, mapDispatchToProps)(RowExample);

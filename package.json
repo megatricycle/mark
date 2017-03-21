@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "lint": "standard --verbose | snazzy",
-    "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
-    "fixcode": "standard --fix",
+    "lint": "semistandard --verbose | snazzy",
+    "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs semistandard | snazzy",
+    "fixcode": "semistandard --fix",
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
     "clean:android": "cd android/ && ./gradlew clean && cd .. && react-native run-android",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build && rm -rf node_modules/ && npm cache clean && npm i",
@@ -62,8 +62,8 @@
     "reactotron-react-native": "^1.7.0",
     "reactotron-redux": "^1.7.0",
     "reactotron-redux-saga": "^1.7.0",
-    "snazzy": "^6.0.0",
-    "standard": "8.6.0"
+    "semistandard": "^10.0.0",
+    "snazzy": "^6.0.0"
   },
   "ava": {
     "files": [
@@ -78,7 +78,7 @@
     ],
     "babel": "inherit"
   },
-  "standard": {
+  "semistandard": {
     "parser": "babel-eslint",
     "globals": [
       "describe",

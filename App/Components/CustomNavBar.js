@@ -1,9 +1,9 @@
-import React from 'react'
-import { View, Image, Animated, TouchableOpacity } from 'react-native'
-import { Images, Colors } from '../Themes'
-import Styles from './Styles/CustomNavBarStyles'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { Actions as NavigationActions } from 'react-native-router-flux'
+import React from 'react';
+import { View, Image, Animated, TouchableOpacity } from 'react-native';
+import { Images, Colors } from '../Themes';
+import Styles from './Styles/CustomNavBarStyles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Actions as NavigationActions } from 'react-native-router-flux';
 
 export default class CustomNavBar extends React.Component {
   render () {
@@ -15,6 +15,6 @@ export default class CustomNavBar extends React.Component {
         <Image style={Styles.logo} source={Images.clearLogo} />
         <View style={Styles.rightButton} />
       </Animated.View>
-    )
+    );
   }
 }

@@ -1,17 +1,16 @@
-import React from 'react'
-import { View, Text, ListView } from 'react-native'
-import { connect } from 'react-redux'
+import React from 'react';
+import { View, Text, ListView } from 'react-native';
+import { connect } from 'react-redux';
 
 // For empty lists
-import AlertMessage from '../Components/AlertMessage'
+import AlertMessage from '../Components/AlertMessage';
 
 // Styles
-import styles from './Styles/ListviewGridExampleStyles'
+import styles from './Styles/ListviewGridExampleStyles';
 
 class ListviewGridExample extends React.Component {
-
   constructor (props) {
-    super(props)
+    super(props);
     /* ***********************************************************
     * STEP 1
     * This is an array of objects with the properties you desire
@@ -39,7 +38,7 @@ class ListviewGridExample extends React.Component {
       {title: '19th Title', description: '19th Description'},
       {title: '20th Title', description: '20th Description'},
       {title: 'BLACKJACK!', description: 'BLACKJACK! Description'}
-    ]
+    ];
 
     /* ***********************************************************
     * STEP 2
@@ -47,15 +46,15 @@ class ListviewGridExample extends React.Component {
     * Make this function fast!  Perhaps something like:
     *   (r1, r2) => r1.id !== r2.id}
     *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    const rowHasChanged = (r1, r2) => r1 !== r2;
 
     // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
+    const ds = new ListView.DataSource({rowHasChanged});
 
     // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects)
-    }
+    };
   }
 
   /* ***********************************************************
@@ -72,7 +71,7 @@ class ListviewGridExample extends React.Component {
         <Text style={styles.boldLabel}>{rowData.title}</Text>
         <Text style={styles.label}>{rowData.description}</Text>
       </View>
-    )
+    );
   }
 
   /* ***********************************************************
@@ -96,7 +95,7 @@ class ListviewGridExample extends React.Component {
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
   noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   render () {
@@ -110,14 +109,14 @@ class ListviewGridExample extends React.Component {
           pageSize={15}
         />
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(ListviewGridExample)
+export default connect(mapStateToProps)(ListviewGridExample);

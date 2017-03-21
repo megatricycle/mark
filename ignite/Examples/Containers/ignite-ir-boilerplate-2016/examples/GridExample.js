@@ -1,18 +1,17 @@
-import React from 'react'
-import { View, Text, ListView } from 'react-native'
-import { connect } from 'react-redux'
+import React from 'react';
+import { View, Text, ListView } from 'react-native';
+import { connect } from 'react-redux';
 // import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // For empty lists
 // import AlertMessage from '../Components/AlertMessage'
 
 // Styles
-import styles from './Styles/GridExampleStyle'
+import styles from './Styles/GridExampleStyle';
 
 class GridExample extends React.Component {
-
   constructor (props) {
-    super(props)
+    super(props);
     // If you need scroll to bottom, consider http://bit.ly/2bMQ2BZ
 
     /* ***********************************************************
@@ -28,7 +27,7 @@ class GridExample extends React.Component {
       {title: 'Fifth Title', description: 'Fifth Description'},
       {title: 'Sixth Title', description: 'Sixth Description'},
       {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
+    ];
 
     /* ***********************************************************
     * STEP 2
@@ -36,15 +35,15 @@ class GridExample extends React.Component {
     * Make this function fast!  Perhaps something like:
     *   (r1, r2) => r1.id !== r2.id}
     *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    const rowHasChanged = (r1, r2) => r1 !== r2;
 
     // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
+    const ds = new ListView.DataSource({rowHasChanged});
 
     // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRows(dataObjects)
-    }
+    };
   }
 
   /* ***********************************************************
@@ -61,7 +60,7 @@ class GridExample extends React.Component {
         <Text style={styles.boldLabel}>{rowData.title}</Text>
         <Text style={styles.label}>{rowData.description}</Text>
       </View>
-    )
+    );
   }
 
   /* ***********************************************************
@@ -85,14 +84,14 @@ class GridExample extends React.Component {
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
   _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   // Render a footer.
   _renderFooter = () => {
     return (
       <Text> - Footer - </Text>
-    )
+    );
   }
 
   render () {
@@ -107,19 +106,19 @@ class GridExample extends React.Component {
           pageSize={15}
         />
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridExample)
+export default connect(mapStateToProps, mapDispatchToProps)(GridExample);

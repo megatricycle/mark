@@ -1,9 +1,9 @@
 // @flow
 
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import ExamplesRegistry from '../../../App/Services/ExamplesRegistry'
-import * as Animatable from 'react-native-animatable'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import ExamplesRegistry from '../../../App/Services/ExamplesRegistry';
+import * as Animatable from 'react-native-animatable';
 
 // Example
 ExamplesRegistry.addPluginExample('Animatable', () =>
@@ -29,7 +29,7 @@ ExamplesRegistry.addPluginExample('Animatable', () =>
       <Text style={styles.pulseButtonText}>puLsepuLsepuLse</Text>
     </Animatable.View>
   </View>
-)
+);
 
 const styles = StyleSheet.create({
   button: {
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
   pulseButtonText: {
     color: 'white'
   }
-})
+});

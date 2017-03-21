@@ -1,9 +1,9 @@
 // @flow
 
-import React from 'react'
-import { View } from 'react-native'
-import ExamplesRegistry from '../../../App/Services/ExamplesRegistry'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import React from 'react';
+import { View } from 'react-native';
+import ExamplesRegistry from '../../../App/Services/ExamplesRegistry';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Example
 ExamplesRegistry.addPluginExample('Vector Icons', () =>
@@ -14,4 +14,4 @@ ExamplesRegistry.addPluginExample('Vector Icons', () =>
     <Icon name='trophy' size={40} color='white' />
     <Icon name='warning' size={40} color='white' />
   </View>
-)
+);

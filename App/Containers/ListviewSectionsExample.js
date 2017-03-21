@@ -1,17 +1,16 @@
-import React from 'react'
-import { View, ListView, Text } from 'react-native'
-import { connect } from 'react-redux'
+import React from 'react';
+import { View, ListView, Text } from 'react-native';
+import { connect } from 'react-redux';
 
 // For empty lists
-import AlertMessage from '../Components/AlertMessage'
+import AlertMessage from '../Components/AlertMessage';
 
 // Styles
-import styles from './Styles/ListviewExampleStyles'
+import styles from './Styles/ListviewExampleStyles';
 
 class ListviewSectionsExample extends React.Component {
-
   constructor (props) {
-    super(props)
+    super(props);
 
     /* ***********************************************************
     * STEP 1
@@ -44,7 +43,7 @@ class ListviewSectionsExample extends React.Component {
         {title: '20th Title', description: '20th Description'},
         {title: 'BLACKJACK!', description: 'BLACKJACK! Description'}
       ]
-    }
+    };
     /* ***********************************************************
     * STEP 2
     * Teach datasource how to detect if rows are different
@@ -52,16 +51,16 @@ class ListviewSectionsExample extends React.Component {
     *   (r1, r2) => r1.id !== r2.id}
     *   The same goes for sectionHeaderHasChanged
     *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
-    const sectionHeaderHasChanged = (s1, s2) => s1 !== s2
+    const rowHasChanged = (r1, r2) => r1 !== r2;
+    const sectionHeaderHasChanged = (s1, s2) => s1 !== s2;
 
     // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged, sectionHeaderHasChanged})
+    const ds = new ListView.DataSource({rowHasChanged, sectionHeaderHasChanged});
 
     // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(dataObjects)
-    }
+    };
   }
 
   /* ***********************************************************
@@ -80,7 +79,7 @@ class ListviewSectionsExample extends React.Component {
         <Text style={styles.boldLabel}>Section {sectionID} - {rowData.title}</Text>
         <Text style={styles.label}>{rowData.description}</Text>
       </View>
-    )
+    );
   }
 
   /* ***********************************************************
@@ -104,15 +103,15 @@ class ListviewSectionsExample extends React.Component {
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
   noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   renderHeader (data, sectionID) {
     switch (sectionID) {
       case 'first':
-        return <Text style={styles.boldLabel}>First Section</Text>
+        return <Text style={styles.boldLabel}>First Section</Text>;
       default:
-        return <Text style={styles.boldLabel}>Second Section</Text>
+        return <Text style={styles.boldLabel}>Second Section</Text>;
     }
   }
 
@@ -128,19 +127,19 @@ class ListviewSectionsExample extends React.Component {
           enableEmptySections
         />
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListviewSectionsExample)
+export default connect(mapStateToProps, mapDispatchToProps)(ListviewSectionsExample);

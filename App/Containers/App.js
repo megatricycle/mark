@@ -1,11 +1,11 @@
-import '../Config'
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import RootContainer from './RootContainer'
-import createStore from '../Redux'
+import '../Config';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import RootContainer from './RootContainer';
+import createStore from '../Redux';
 
 // create our store
-const store = createStore()
+const store = createStore();
 
 /**
  * Provides an entry point into our application.  Both index.ios.js and index.android.js
@@ -22,8 +22,8 @@ class App extends Component {
       <Provider store={store}>
         <RootContainer />
       </Provider>
-    )
+    );
   }
 }
 
-export default App
+export default App;
