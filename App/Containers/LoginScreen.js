@@ -1,16 +1,25 @@
 import React from 'react';
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, Button, KeyboardAvoidingView, Linking, NativeModules } from 'react-native';
 import { connect } from 'react-redux';
+
+import ARActivity from '../Services/ARActivity';
 
 // Styles
 import styles from './Styles/LoginScreenStyle';
 
 class LoginScreen extends React.Component {
+  handlePress () {
+    ARActivity.startActivity();
+  }
+
   render () {
     return (
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
-          <Text>Hello!</Text>
+          <Button
+            title="Click me"
+            onPress={this.handlePress}
+          />
         </KeyboardAvoidingView>
       </ScrollView>
     );

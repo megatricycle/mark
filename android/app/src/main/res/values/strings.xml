@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MARK</string>
+    <string name="title_activity_sampling">SamplingActivity</string>
 </resources>
