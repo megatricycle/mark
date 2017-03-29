@@ -22,7 +22,7 @@ public class ARActivityModule extends ReactContextBaseJavaModule {
     @SuppressWarnings("unused")
     public void startActivity() {
         Activity context = getCurrentActivity();
-        Intent rctActivityIntent = new Intent(context, ARActivity.class);
+        Intent rctActivityIntent = new Intent(context, ARCameraActivity.class);
         context.startActivity(rctActivityIntent);
     }
 }

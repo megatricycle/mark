@@ -1,5 +1,5 @@
 rootProject.name = 'mark'
-include ':react-native-vector-icons'
+include ':react-native-vector-icons', ':KudanAR'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 include ':react-native-device-info'
 project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')

@@ -10,7 +10,61 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mark.ARActivity"
+    tools:context="com.mark.ARCameraActivity"
     tools:showIn="@layout/activity_sampling">
 
+    <ImageButton
+        android:layout_height="47dip"
+        android:background="@drawable/arrow_right"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/imageButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="47dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:background="@drawable/x"
+        android:id="@+id/imageButton3"
+        android:layout_width="20dip"
+        android:layout_marginTop="15dp"
+        android:layout_height="20dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/imageButton"
+        android:layout_alignEnd="@+id/imageButton" />
+
+    <ImageButton
+        android:background="@drawable/arrow_left"
+        android:id="@+id/imageButton2"
+        android:layout_height="47dip"
+        android:layout_width="47dip"
+        android:layout_alignTop="@+id/imageButton"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2" />
+
+    <TextView
+        android:text="1/18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toLeftOf="@+id/imageButton"
+        android:layout_toStartOf="@+id/imageButton"
+        android:textSize="16sp" />
+
+    <TextView
+        android:text="Point your camera at the object."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_marginBottom="13dp"
+        android:layout_alignBottom="@+id/imageButton2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 </RelativeLayout>
+
