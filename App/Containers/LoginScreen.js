@@ -26,6 +26,14 @@ class LoginScreen extends React.Component {
     }
   }
 
+  componentWillMount () {
+    if (this.props.user.username) {
+      Actions.appScreen({
+        type: ActionConst.REPLACE
+      });
+    }
+  }
+
   render () {
     const { page } = this.props.loginPage;
     const { openSignupPage, openLoginPage, login } = this.props;

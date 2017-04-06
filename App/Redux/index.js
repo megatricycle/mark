@@ -8,7 +8,8 @@ export default () => {
     github: require('./GithubRedux').reducer,
     loginPage: require('./LoginRedux').reducer,
     search: require('./SearchRedux').reducer,
-    user: require('./UserRedux').reducer
+    user: require('./UserRedux').reducer,
+    home: require('./HomeRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga);

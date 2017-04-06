@@ -1,4 +1,4 @@
-import { Colors, Metrics, Fonts } from '../../Themes/';
+import { Colors, Metrics } from '../../Themes/';
 
 export default {
   container: {
@@ -7,35 +7,19 @@ export default {
     left: 0,
     right: 0,
     height: Metrics.navBarHeight,
-    paddingTop: Metrics.smallMargin,
+    paddingVertical: Metrics.smallMargin,
     paddingHorizontal: 5,
     backgroundColor: Colors.background,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
-  title: {
+  searchContainer: {
     flex: 1,
-    textAlign: 'center',
-    color: Colors.snow,
-    marginTop: Metrics.doubleBaseMargin,
-    backgroundColor: Colors.transparent,
-    fontWeight: 'bold',
-    fontSize: Fonts.size.input
+    backgroundColor: Colors.transparent
   },
-  logo: {
-    alignSelf: 'center',
-    marginTop: Metrics.baseMargin,
-    height: Metrics.icons.large,
-    width: Metrics.icons.large
-  },
-  rightButtons: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    flexDirection: 'row'
-  },
-  leftButtons: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    flexDirection: 'row'
+  searchInput: {
+    padding: 0,
+    backgroundColor: '#501361'
   }
 };

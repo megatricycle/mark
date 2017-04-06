@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import Styles from './Styles/NavigationContainerStyles';
-import NavigationDrawer from './NavigationDrawer';
+import NavBar from './NavBar';
 
 // screens identified by the router
 import LoginScreen from '../Containers/LoginScreen';
@@ -15,11 +14,9 @@ class NavigationRouter extends Component {
   render () {
     return (
       <Router>
-        <Scene key='drawer' component={NavigationDrawer} open={false}>
-          <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-            <Scene initial key='launchScreen' component={LoginScreen} title='LoginScreen' hideNavBar />
-            <Scene key='appScreen' component={HomeScreen} title='appScreen' hideNavBar />
-          </Scene>
+        <Scene key='navBarWrapper' navBar={NavBar}>
+          <Scene initial key='launchScreen' component={LoginScreen} title='LoginScreen' hideNavBar />
+          <Scene key='appScreen' component={HomeScreen} title='appScreen' />
         </Scene>
       </Router>
     );
