@@ -4,6 +4,7 @@ import { Tabs, Tab, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import HomeActions, { TabNames } from '../Redux/HomeRedux';
+import Dashboard from '../Components/Dashboard';
 
 // Styles
 import styles from './Styles/HomeScreenStyle';
@@ -28,7 +29,9 @@ class HomeScreen extends React.Component {
             renderSelectedIcon={() => <Icon color={Colors.accent} name='dashboard' size={30} />}
             onPress={() => { changeTab(TabNames.DASHBOARD); }}
           >
-            <View style={[styles.homepageView]}><Text>1 {JSON.stringify(this.props.home)}</Text></View>
+            <View style={[styles.homepageView]}>
+              <Dashboard />
+            </View>
           </Tab>
           <Tab
             titleStyle={styles.tabTitle}

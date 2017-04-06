@@ -22,6 +22,7 @@ export default StyleSheet.create({
     marginTop: 12
   },
   homepageView: {
-    paddingTop: 100
+    paddingTop: 100,
+    flex: 1
   }
 });
