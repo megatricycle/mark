@@ -4,7 +4,7 @@ import { Tabs, Tab, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import HomeActions, { TabNames } from '../Redux/HomeRedux';
-import Dashboard from '../Components/Dashboard';
+import Dashboard from './Dashboard';
 
 // Styles
 import styles from './Styles/HomeScreenStyle';
