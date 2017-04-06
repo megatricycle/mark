@@ -23,6 +23,7 @@ export default StyleSheet.create({
   },
   homepageView: {
     paddingTop: 100,
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.grey
   }
 });

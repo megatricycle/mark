@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import HomeActions, { TabNames } from '../Redux/HomeRedux';
 import Dashboard from './Dashboard';
+import Subscriptions from './Subscriptions';
 
 // Styles
 import styles from './Styles/HomeScreenStyle';
@@ -19,7 +20,7 @@ class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Tabs tabBarStyle={styles.tabBar}>
+        <Tabs tabBarStyle={styles.tabBar} sceneStyle={{paddingBottom: 0}}>
           <Tab
             titleStyle={styles.tabTitle}
             selectedTitleStyle={styles.selectedTitle}
@@ -42,7 +43,9 @@ class HomeScreen extends React.Component {
             renderSelectedIcon={() => <Icon color={Colors.accent} name='view-module' size={30} />}
             onPress={() => { changeTab(TabNames.SUBSCRIPTIONS); }}
           >
-            <View style={[styles.homepageView]}><Text>2 {JSON.stringify(this.props.home)}</Text></View>
+            <View style={[styles.homepageView]}>
+              <Subscriptions />
+            </View>
           </Tab>
           <Tab
             titleStyle={styles.tabTitle}
