@@ -3,11 +3,7 @@ import { Colors, Metrics } from '../../Themes';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.grey,
     padding: Metrics.section
-  },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center'
   }
 });

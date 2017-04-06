@@ -7,13 +7,13 @@ import DebugConfig from '../Config/DebugConfig';
 
 import { StartupTypes } from '../Redux/StartupRedux';
 import { GithubTypes } from '../Redux/GithubRedux';
-import { LoginTypes } from '../Redux/LoginRedux';
+// import { LoginTypes } from '../Redux/LoginRedux';
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux';
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas';
-import { login } from './LoginSagas';
+// import { login } from './LoginSagas';
 import { getUserAvatar } from './GithubSagas';
 import { openScreen } from './OpenScreenSagas';
 
@@ -29,7 +29,7 @@ export default function * root () {
   yield [
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(LoginTypes.LOGIN_REQUEST, login),
+    // takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     // some sagas receive extra parameters in addition to an action

@@ -4,30 +4,26 @@ import Immutable from 'seamless-immutable';
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  openSignupPage: null,
-  openLoginPage: null
+  loginUser: ['username']
 });
 
-export const LoginTypes = Types;
+export const UserTypes = Types;
 export default Creators;
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  page: 'LOGIN'
+  username: null
 });
 
 /* ------------- Reducers ------------- */
 
-export const openSignupPage = (state, { data }) =>
-  state.merge({ page: 'SIGN_UP' });
-
-export const openLoginPage = (state, { data }) =>
-  state.merge({ page: 'LOGIN' });
+// request the data from an api
+export const loginUser = (state, data) =>
+  state.merge({ username: data.username });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.OPEN_SIGNUP_PAGE]: openSignupPage,
-  [Types.OPEN_LOGIN_PAGE]: openLoginPage
+  [Types.LOGIN_USER]: loginUser
 });
