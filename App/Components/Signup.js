@@ -41,7 +41,7 @@ export default class Signup extends React.Component {
         <View style={styles.signupButton}>
           <Button
             title={'Sign up'}
-            onPress={this.props.login}
+            onPress={() => {}}
             color={Colors.accent}
           />
         </View>

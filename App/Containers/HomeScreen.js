@@ -1,22 +1,40 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Tabs, Tab, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 import HomeActions, { TabNames } from '../Redux/HomeRedux';
 import Dashboard from './Dashboard';
 import Subscriptions from './Subscriptions';
+import Account from './Account';
 
 // Styles
 import styles from './Styles/HomeScreenStyle';
 import { Colors } from '../Themes';
 
 class HomeScreen extends React.Component {
+  componentWillMount () {
+    if (!this.props.user.username) {
+      Actions.loginScreen({
+        type: ActionConst.REPLACE
+      });
+    }
+
+    this.props.reset();
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (!newProps.user.username) {
+      Actions.loginScreen({
+        type: ActionConst.REPLACE
+      });
+    }
+  }
+
   render () {
     const { changeTab } = this.props;
     const { currentTab } = this.props.home;
-
-    // console.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -56,7 +74,9 @@ class HomeScreen extends React.Component {
             renderSelectedIcon={() => <Icon color={Colors.accent} name='person' size={30} />}
             onPress={() => { changeTab(TabNames.ACCOUNT); }}
           >
-            <View style={[styles.homepageView]}><Text>3 {JSON.stringify(this.props.home)}</Text></View>
+            <View style={[styles.homepageView]}>
+              <Account />
+            </View>
           </Tab>
         </Tabs>
       </View>
@@ -66,13 +86,15 @@ class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    home: state.home
+    home: state.home,
+    user: state.user
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeTab: (tabName) => dispatch(HomeActions.changeTab(tabName))
+    changeTab: (tabName) => dispatch(HomeActions.changeTab(tabName)),
+    reset: (tabName) => dispatch(HomeActions.reset())
   };
 };
 

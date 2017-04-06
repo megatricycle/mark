@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ScrollView,
-  Text,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -54,7 +53,6 @@ class LoginScreen extends React.Component {
             />
           }
         </View>
-        <Text style={{color: 'white'}}>{JSON.stringify(this.props.user)}</Text>
       </ScrollView>
     );
   }

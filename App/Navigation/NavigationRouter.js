@@ -15,7 +15,7 @@ class NavigationRouter extends Component {
     return (
       <Router>
         <Scene key='navBarWrapper' navBar={NavBar}>
-          <Scene initial key='launchScreen' component={LoginScreen} title='LoginScreen' hideNavBar />
+          <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' hideNavBar />
           <Scene key='appScreen' component={HomeScreen} title='appScreen' />
         </Scene>
       </Router>
