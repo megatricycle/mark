@@ -8,7 +8,7 @@ import {
 import TextField from 'react-native-md-textinput';
 import styles from './Styles/LoginStyle';
 
-import Colors from '../Themes/Colors';
+import { Colors, Images } from '../Themes';
 
 export default class Login extends React.Component {
   render () {
@@ -18,7 +18,7 @@ export default class Login extends React.Component {
       <View>
         <View style={styles.center}>
           <Image
-            source={require('../Images/launch-icon.png')}
+            source={Images.logo}
           />
         </View>
         <TextField

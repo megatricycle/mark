@@ -9,7 +9,8 @@ export default () => {
     loginPage: require('./LoginRedux').reducer,
     search: require('./SearchRedux').reducer,
     user: require('./UserRedux').reducer,
-    home: require('./HomeRedux').reducer
+    home: require('./HomeRedux').reducer,
+    startup: require('./StartupRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga);

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import StartupActions from '../Redux/StartupRedux';
 import ReduxPersist from '../Config/ReduxPersist';
 
+import Splash from '../Components/Splash';
+
 // Styles
 import styles from './Styles/RootContainerStyles';
 
@@ -17,19 +19,30 @@ class RootContainer extends Component {
   }
 
   render () {
+    const { started } = this.props.startupState;
+
     return (
       <View style={styles.applicationView}>
         <StatusBar barStyle='light-content' />
         {/* @TODO: Check for session before passing app router */}
-        <NavigationRouter />
+        { started
+          ? <NavigationRouter />
+          : <Splash />
+        }
       </View>
     );
   }
 }
 
 // wraps dispatch to create nicer functions to call within our component
+const mapStateToProps = (state) => {
+  return {
+    startupState: state.startup
+  };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup())
 });
 
-export default connect(null, mapDispatchToProps)(RootContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);
