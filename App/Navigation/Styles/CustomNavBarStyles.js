@@ -11,7 +11,6 @@ export default {
     paddingHorizontal: 5,
     backgroundColor: Colors.background,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center'
   },
   searchContainer: {
@@ -21,5 +20,13 @@ export default {
   searchInput: {
     padding: 0,
     backgroundColor: '#501361'
+  },
+  backButton: {
+    marginLeft: Metrics.baseMargin / 2
+  },
+  navTitle: {
+    color: Colors.white,
+    fontSize: 16,
+    marginLeft: Metrics.baseMargin
   }
 };

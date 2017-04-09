@@ -1,20 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { View, Text } from 'react-native';
+import { SearchBar, Icon } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 import styles from './Styles/CustomNavBarStyles';
+import { Colors } from '../Themes';
 
-class CustomNavBar extends React.Component {
+class NavBar extends React.Component {
   render () {
+    const { scene } = this.props.navigation;
+    const { title } = this.props.navBar;
+
     return (
       <View style={styles.container}>
-        <SearchBar
-          placeholder={'Search'}
-          round
-          containerStyle={styles.searchContainer}
-          inputStyle={styles.searchInput}
-        />
+        {
+          scene.title === 'productScreen'
+            ? <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <Icon
+                name={'arrow-back'}
+                color={Colors.white}
+                onPress={() => Actions.pop()}
+                underlayColor={Colors.transparent}
+                iconStyle={styles.backButton}
+              />
+              <Text style={styles.navTitle}>{title}</Text>
+            </View>
+          : <SearchBar
+            placeholder={'Search'}
+            round
+            containerStyle={styles.searchContainer}
+            inputStyle={styles.searchInput}
+            />
+        }
       </View>
     );
   }
@@ -22,6 +40,8 @@ class CustomNavBar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    navigation: state.navigation,
+    navBar: state.navBar
   };
 };
 
@@ -30,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomNavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

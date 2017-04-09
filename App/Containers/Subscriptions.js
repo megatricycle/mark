@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 // Styles
 import styles from './Styles/SubscriptionsStyle';
@@ -19,35 +20,35 @@ class Subscriptions extends React.Component {
               avatar={Images.dummy}
               key={1}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={2}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={3}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={4}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={5}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
           </List>
         </View>
@@ -60,35 +61,35 @@ class Subscriptions extends React.Component {
               avatar={Images.dummy}
               key={1}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={2}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={3}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={4}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
             <ListItem
               roundAvatar
               avatar={Images.dummy}
               key={5}
               title={'GearVR'}
-              onPress={() => { window.alert('Boop!'); }}
+              onPress={() => { Actions.productScreen(); }}
             />
           </List>
         </View>
