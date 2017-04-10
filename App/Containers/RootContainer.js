@@ -24,7 +24,6 @@ class RootContainer extends Component {
     return (
       <View style={styles.applicationView}>
         <StatusBar barStyle='light-content' />
-        {/* @TODO: Check for session before passing app router */}
         { started
           ? <NavigationRouter />
           : <Splash />
