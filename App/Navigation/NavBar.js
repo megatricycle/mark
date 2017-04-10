@@ -3,11 +3,26 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import NavBarActions from '../Redux/NavBarRedux';
 
 import styles from './Styles/CustomNavBarStyles';
 import { Colors } from '../Themes';
 
+const screensWithTitle = ['productScreen', 'manualScreen'];
+
 class NavBar extends React.Component {
+  componentWillReceiveProps (newProps) {
+    const { title } = newProps.navigation.scene;
+    const { setTitle } = this.props;
+
+    // @TODO
+    if (title === 'productScreen' && newProps.navBar.title !== 'GearVR') {
+      setTitle('GearVR');
+    } else if (title === 'manualScreen' && newProps.navBar.title !== 'Assembling the Container') {
+      setTitle('Assembling the Container');
+    }
+  }
+
   render () {
     const { scene } = this.props.navigation;
     const { title } = this.props.navBar;
@@ -15,7 +30,7 @@ class NavBar extends React.Component {
     return (
       <View style={styles.container}>
         {
-          scene.title === 'productScreen'
+          screensWithTitle.indexOf(scene.title) > -1
             ? <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
               <Icon
                 name={'arrow-back'}
@@ -47,6 +62,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setTitle: (title) => dispatch(NavBarActions.setTitle(title))
   };
 };
 

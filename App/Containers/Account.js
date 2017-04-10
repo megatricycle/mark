@@ -4,19 +4,12 @@ import { connect } from 'react-redux';
 import { List, ListItem, Avatar } from 'react-native-elements';
 import UserActions from '../Redux/UserRedux';
 
-import ARActivity from '../Services/ARActivity';
-
 // Styles
 import styles from './Styles/AccountStyle';
 
 class Account extends React.Component {
-  startAR () {
-    ARActivity.startActivity();
-  }
-
   render () {
     const { logout } = this.props;
-    const { startAR } = this;
 
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -35,12 +28,6 @@ class Account extends React.Component {
         </View>
 
         <List containerStyle={styles.list}>
-          <ListItem
-            key={0}
-            title={'Try Camera'}
-            onPress={startAR}
-            leftIcon={{ name: 'camera' }}
-          />
           <ListItem
             key={1}
             title={'Logout'}

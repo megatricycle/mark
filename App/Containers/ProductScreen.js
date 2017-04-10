@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-import NavBarActions from '../Redux/NavBarRedux';
+
 import ProductActions from '../Redux/ProductRedux';
+import { Actions } from 'react-native-router-flux';
 
 // Styles
 import styles from './Styles/ProductScreenStyle';
@@ -17,7 +18,6 @@ import { Images } from '../Themes';
 
 class ProductScreen extends React.Component {
   componentWillMount () {
-    this.props.setTitle('GearVR');
     this.props.hideDescription();
   }
 
@@ -56,11 +56,11 @@ class ProductScreen extends React.Component {
               { isDescriptionShown
                 ? <Text
                   style={styles.productDescription}
-                >
-                  Consectetur adipiscing elit. Etiam dictum vel erat eu malesuada. Cras posuere ultricies lacus, at pulvinar ex eleifend eu. Donec eget leo a nulla bibendum tincidunt sit amet in turpis. Morbi porttitor mi eget lacus rutrum imperdiet. Sed purus quam, lobortis et fermentum eu, sodales id nisl. In pellentesque eget metus sit amet feugiat. Praesent quis quam tincidunt ante condimentum mattis. Suspendisse efficitur bibendum mi, vitae vehicula odio fringilla eget. Pellentesque ut facilisis dolor. Nulla volutpat semper ligula vel varius. Praesent ullamcorper condimentum elit, in feugiat metus egestas eu. Integer velit nunc, consequat a cursus quis, interdum id ex. Phasellus ornare lacus sem, eu congue libero mollis at. Etiam quis ultricies ante, quis lobortis magna. Donec convallis tempor posuere. Pellentesque augue tellus, viverra vel malesuada eget, rutrum eu sapien.
-                  {'\n\n'}
-                  Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.
-                </Text>
+                  >
+                    Consectetur adipiscing elit. Etiam dictum vel erat eu malesuada. Cras posuere ultricies lacus, at pulvinar ex eleifend eu. Donec eget leo a nulla bibendum tincidunt sit amet in turpis. Morbi porttitor mi eget lacus rutrum imperdiet. Sed purus quam, lobortis et fermentum eu, sodales id nisl. In pellentesque eget metus sit amet feugiat. Praesent quis quam tincidunt ante condimentum mattis. Suspendisse efficitur bibendum mi, vitae vehicula odio fringilla eget. Pellentesque ut facilisis dolor. Nulla volutpat semper ligula vel varius. Praesent ullamcorper condimentum elit, in feugiat metus egestas eu. Integer velit nunc, consequat a cursus quis, interdum id ex. Phasellus ornare lacus sem, eu congue libero mollis at. Etiam quis ultricies ante, quis lobortis magna. Donec convallis tempor posuere. Pellentesque augue tellus, viverra vel malesuada eget, rutrum eu sapien.
+                    {'\n\n'}
+                    Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.
+                  </Text>
                 : <TouchableNativeFeedback onPress={showDescription}>
                   <View style={styles.showMoreButtonContainer}>
                     <Text style={styles.showMoreButton}>Read more</Text>
@@ -77,17 +77,17 @@ class ProductScreen extends React.Component {
               <ListItem
                 key={1}
                 title={'Assembling the Container'}
-                onPress={() => { window.alert('Clicking a Manual'); }}
+                onPress={() => { Actions.manualScreen(); }}
               />
               <ListItem
                 key={2}
                 title={'Maintaining the Grid'}
-                onPress={() => { window.alert('Clicking a Manual'); }}
+                onPress={() => { Actions.manualScreen(); }}
               />
               <ListItem
                 key={3}
                 title={'Disassembling the Container'}
-                onPress={() => { window.alert('Clicking a Manual'); }}
+                onPress={() => { Actions.manualScreen(); }}
               />
             </List>
           </View>
@@ -105,7 +105,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setTitle: (title) => dispatch(NavBarActions.setTitle(title)),
     hideDescription: () => dispatch(ProductActions.hideDescription()),
     showDescription: () => dispatch(ProductActions.showDescription())
   };

@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import LoginScreen from '../Containers/LoginScreen';
 import HomeScreen from '../Containers/HomeScreen';
 import ProductScreen from '../Containers/ProductScreen';
+import ManualScreen from '../Containers/ManualScreen';
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -22,6 +23,7 @@ class NavigationRouter extends Component {
           <Scene initial key='loginScreen' component={LoginScreen} title='LoginScreen' hideNavBar />
           <Scene key='appScreen' component={HomeScreen} title='appScreen' />
           <Scene key='productScreen' component={ProductScreen} title='productScreen' />
+          <Scene key='manualScreen' component={ManualScreen} title='manualScreen' />
         </Scene>
       </RouterWithRedux>
     );
