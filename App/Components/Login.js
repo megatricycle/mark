@@ -54,14 +54,3 @@ export default class Login extends React.Component {
     );
   }
 }
-
-// // Prop type warnings
-// Login.propTypes = {
-//   someProperty: React.PropTypes.object,
-//   someSetting: React.PropTypes.bool.isRequired
-// }
-//
-// // Defaults for props
-// Login.defaultProps = {
-//   someSetting: false
-// }

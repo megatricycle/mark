@@ -4,7 +4,7 @@ import { Colors, Metrics } from '../../Themes';
 export default StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
-    padding: Metrics.section
+    paddingHorizontal: Metrics.section
   },
   contentContainer: {
     flex: 1,
