@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 const { Types, Creators } = createActions({
   openSignupPage: null,
   openLoginPage: null,
-  reset: null
+  resetLogin: null
 });
 
 export const LoginTypes = Types;
@@ -26,7 +26,7 @@ export const openSignupPage = (state, { data }) =>
 export const openLoginPage = (state, { data }) =>
   state.merge({ page: 'LOGIN' });
 
-export const reset = (state) =>
+export const resetLogin = (state) =>
   state.merge(INITIAL_STATE);
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -34,5 +34,5 @@ export const reset = (state) =>
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.OPEN_SIGNUP_PAGE]: openSignupPage,
   [Types.OPEN_LOGIN_PAGE]: openLoginPage,
-  [Types.RESET]: reset
+  [Types.RESET_LOGIN]: resetLogin
 });

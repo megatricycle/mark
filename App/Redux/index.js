@@ -12,7 +12,8 @@ export default () => {
     startup: require('./StartupRedux').reducer,
     navigation: require('./NavigationRedux').reducer,
     navBar: require('./NavBarRedux').reducer,
-    product: require('./ProductRedux').reducer
+    product: require('./ProductRedux').reducer,
+    products: require('./ProductsRedux').reducer
   });
 
   return configureStore(rootReducer, rootSaga);

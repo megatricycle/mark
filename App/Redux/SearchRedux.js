@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
   setSearchTerm: ['term'],
-  reset: null
+  resetSearch: null
 });
 
 export const SearchTypes = Types;
@@ -22,12 +22,12 @@ export const INITIAL_STATE = Immutable({
 export const setSearchTerm = (state, { term }) =>
   state.merge({ term });
 
-export const reset = (state) =>
+export const resetSearch = (state) =>
   state.merge(INITIAL_STATE);
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_SEARCH_TERM]: setSearchTerm,
-  [Types.REST]: reset
+  [Types.REST_SEARCH]: resetSearch
 });

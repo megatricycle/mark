@@ -11,7 +11,7 @@ export const TabNames = {
 
 const { Types, Creators } = createActions({
   changeTab: ['tabName'],
-  reset: null
+  resetHome: null
 });
 
 export const HomeTypes = Types;
@@ -28,12 +28,12 @@ export const INITIAL_STATE = Immutable({
 export const changeTab = (state, data) =>
   state.merge({ currentTab: data.tabName });
 
-export const reset = (state) =>
+export const resetHome = (state) =>
   state.merge(INITIAL_STATE);
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CHANGE_TAB]: changeTab,
-  [Types.RESET]: reset
+  [Types.RESET_HOME]: resetHome
 });

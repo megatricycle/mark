@@ -3,96 +3,53 @@ import { ScrollView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import { getSubscribedProducts } from '../Selectors/ProductsSelector';
+import ProductActions from '../Redux/ProductRedux';
+import _ from 'lodash';
 
 // Styles
 import styles from './Styles/SubscriptionsStyle';
 import { Images } from '../Themes';
 
 class Subscriptions extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.handleProductPress = this.handleProductPress.bind(this);
+  }
+
+  handleProductPress (productId) {
+    const { setSelectedProduct } = this.props;
+
+    setSelectedProduct(productId);
+    Actions.productScreen();
+  }
+
   render () {
+    const { products } = this.props.products;
+    const { handleProductPress } = this;
+
+    const groupedProducts = Object.entries(_.groupBy(products, (product) => product.provider))
+      .map(([prop, value]) => ({ provider: prop, products: value }));
+
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View>
-          <Text style={styles.providerName}>Samsung Inc.</Text>
-          <List containerStyle={styles.list}>
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={1}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={2}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={3}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={4}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={5}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-          </List>
-        </View>
-
-        <View>
-          <Text style={styles.providerName}>Samsung Inc.</Text>
-          <List containerStyle={styles.list}>
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={1}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={2}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={3}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={4}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-            <ListItem
-              roundAvatar
-              avatar={Images.dummy}
-              key={5}
-              title={'GearVR'}
-              onPress={() => { Actions.productScreen(); }}
-            />
-          </List>
-        </View>
+        {groupedProducts.map((group) =>
+          <View key={group.provider}>
+            <Text style={styles.providerName}>{group.provider}</Text>
+            <List containerStyle={styles.list}>
+              {group.products.map((product) =>
+                <ListItem
+                  roundAvatar
+                  avatar={Images.dummy}
+                  key={product.id}
+                  title={product.name}
+                  onPress={() => { handleProductPress(product.id); }}
+                />
+              )}
+            </List>
+          </View>
+        )}
       </ScrollView>
     );
   }
@@ -100,11 +57,13 @@ class Subscriptions extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    products: getSubscribedProducts(state.products)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setSelectedProduct: (productId) => dispatch(ProductActions.setSelectedProduct(productId))
   };
 };
 

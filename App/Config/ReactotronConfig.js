@@ -10,7 +10,8 @@ const sagaPlugin = require('reactotron-redux-saga');
 if (Config.useReactotron) {
   Reactotron
     .configure({
-      host: '192.168.1.27', // default is localhost (on android don't forget to `adb reverse tcp:9090 tcp:9090`)
+      host: 'localhost', // default is localhost (on android don't forget to `adb reverse tcp:9090 tcp:9090`)
+      // host: '192.168.1.27',
       name: 'Ignite App' // would you like to see your app's name?
     })
 

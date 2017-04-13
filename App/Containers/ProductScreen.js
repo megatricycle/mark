@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import { getProductById } from '../Selectors/ProductsSelector';
 import ProductActions from '../Redux/ProductRedux';
 import { Actions } from 'react-native-router-flux';
 
@@ -18,12 +18,14 @@ import { Images } from '../Themes';
 
 class ProductScreen extends React.Component {
   componentWillMount () {
-    this.props.hideDescription();
+    const { hideDescription } = this.props;
+
+    hideDescription();
   }
 
   render () {
     const { showDescription } = this.props;
-    const { isDescriptionShown } = this.props.product;
+    const { isDescriptionShown, product } = this.props.product;
 
     return (
       <View style={styles.contentContainer}>
@@ -34,14 +36,22 @@ class ProductScreen extends React.Component {
               style={styles.productImage}
             />
             <View style={styles.productBasicInfo}>
-              <Text style={styles.productName}>GearVR</Text>
-              <Text style={styles.productProvider}>Samsung</Text>
+              <Text style={styles.productName}>{product.name}</Text>
+              <Text style={styles.productProvider}>{product.provider}</Text>
               <View style={styles.subscribeWrapper}>
-                <Button
-                  title={'Subscribe'}
-                  onPress={() => {}}
-                  buttonStyle={styles.subscribeButton}
-                />
+                { product.isSubscribed
+                  ? <Button
+                    title={'Subscribed!'}
+                    onPress={() => {}}
+                    buttonStyle={styles.subscribeButton}
+                  />
+                  : <Button
+                    title={'Subscribe'}
+                    onPress={() => {}}
+                    buttonStyle={styles.subscribeButton}
+                  />
+                }
+
               </View>
             </View>
           </View>
@@ -50,17 +60,15 @@ class ProductScreen extends React.Component {
               <Text
                 style={styles.productShortDescription}
               >
-                Lorem ipsum sit dolor amet.
+                {product.description.summary}
               </Text>
 
               { isDescriptionShown
                 ? <Text
                   style={styles.productDescription}
                   >
-                    Consectetur adipiscing elit. Etiam dictum vel erat eu malesuada. Cras posuere ultricies lacus, at pulvinar ex eleifend eu. Donec eget leo a nulla bibendum tincidunt sit amet in turpis. Morbi porttitor mi eget lacus rutrum imperdiet. Sed purus quam, lobortis et fermentum eu, sodales id nisl. In pellentesque eget metus sit amet feugiat. Praesent quis quam tincidunt ante condimentum mattis. Suspendisse efficitur bibendum mi, vitae vehicula odio fringilla eget. Pellentesque ut facilisis dolor. Nulla volutpat semper ligula vel varius. Praesent ullamcorper condimentum elit, in feugiat metus egestas eu. Integer velit nunc, consequat a cursus quis, interdum id ex. Phasellus ornare lacus sem, eu congue libero mollis at. Etiam quis ultricies ante, quis lobortis magna. Donec convallis tempor posuere. Pellentesque augue tellus, viverra vel malesuada eget, rutrum eu sapien.
-                    {'\n\n'}
-                    Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.
-                  </Text>
+                  {product.description.detail}
+                </Text>
                 : <TouchableNativeFeedback onPress={showDescription}>
                   <View style={styles.showMoreButtonContainer}>
                     <Text style={styles.showMoreButton}>Read more</Text>
@@ -73,23 +81,19 @@ class ProductScreen extends React.Component {
           <View>
             <Text style={styles.manualsHeader}>Manuals</Text>
 
-            <List containerStyle={styles.listContainer}>
-              <ListItem
-                key={1}
-                title={'Assembling the Container'}
-                onPress={() => { Actions.manualScreen(); }}
-              />
-              <ListItem
-                key={2}
-                title={'Maintaining the Grid'}
-                onPress={() => { Actions.manualScreen(); }}
-              />
-              <ListItem
-                key={3}
-                title={'Disassembling the Container'}
-                onPress={() => { Actions.manualScreen(); }}
-              />
-            </List>
+            {product.manuals.length > 0
+              ? <List containerStyle={styles.listContainer}>
+                {product.manuals.map((manual, i) =>
+                  <ListItem
+                    key={i}
+                    title={manual.name}
+                    onPress={() => { Actions.manualScreen(); }}
+                  />
+                )}
+              </List>
+              : <Text>No manuals for this product.</Text>
+            }
+
           </View>
         </ScrollView>
       </View>
@@ -99,7 +103,7 @@ class ProductScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
+    product: { ...state.product, product: getProductById(state) }
   };
 };
 

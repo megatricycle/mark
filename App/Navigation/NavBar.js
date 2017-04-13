@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import NavBarActions from '../Redux/NavBarRedux';
 import SearchActions from '../Redux/SearchRedux';
 import SearchResults from '../Components/SearchResults';
+import { getProductById } from '../Selectors/ProductsSelector';
 
 import styles from './Styles/CustomNavBarStyles';
 import { Colors } from '../Themes';
@@ -26,20 +27,21 @@ class NavBar extends React.Component {
   }
 
   componentWillMount () {
-    const { reset } = this.props;
+    const { resetSearch } = this.props;
 
-    reset();
+    resetSearch();
   }
 
   componentWillReceiveProps (newProps) {
     const { title } = newProps.navigation.scene;
-    const { setTitle } = this.props;
+    const { setTitle, selectedProduct } = this.props;
 
-    // @TODO
-    if (title === 'productScreen' && newProps.navBar.title !== 'GearVR') {
-      setTitle('GearVR');
-    } else if (title === 'manualScreen' && newProps.navBar.title !== 'Assembling the Container') {
-      setTitle('Assembling the Container');
+    if (selectedProduct) {
+      if (title === 'productScreen' && newProps.navBar.title !== newProps.selectedProduct.name) {
+        setTitle(newProps.selectedProduct.name);
+      } else if (title === 'manualScreen' && newProps.navBar.title !== 'Assembling the Container') {
+        setTitle('Assembling the Container');
+      }
     }
   }
 
@@ -88,7 +90,8 @@ const mapStateToProps = (state) => {
   return {
     navigation: state.navigation,
     navBar: state.navBar,
-    search: state.search
+    search: state.search,
+    selectedProduct: getProductById(state)
   };
 };
 
@@ -96,7 +99,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setTitle: (title) => dispatch(NavBarActions.setTitle(title)),
     setSearchTerm: (term) => dispatch(SearchActions.setSearchTerm(term)),
-    reset: () => dispatch(SearchActions.reset())
+    resetSearch: () => dispatch(SearchActions.resetSearch())
   };
 };
 

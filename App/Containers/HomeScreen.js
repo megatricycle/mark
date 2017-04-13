@@ -15,13 +15,16 @@ import { Colors } from '../Themes';
 
 class HomeScreen extends React.Component {
   componentWillMount () {
-    if (!this.props.user.username) {
+    const { username } = this.props.user;
+    const { resetHome } = this.props;
+
+    if (!username) {
       Actions.loginScreen({
         type: ActionConst.REPLACE
       });
     }
 
-    this.props.reset();
+    resetHome();
   }
 
   componentWillReceiveProps (newProps) {
@@ -94,7 +97,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeTab: (tabName) => dispatch(HomeActions.changeTab(tabName)),
-    reset: (tabName) => dispatch(HomeActions.reset())
+    resetHome: (tabName) => dispatch(HomeActions.resetHome())
   };
 };
 

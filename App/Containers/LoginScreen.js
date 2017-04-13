@@ -26,12 +26,15 @@ class LoginScreen extends React.Component {
   }
 
   componentWillMount () {
-    if (this.props.user.username) {
+    const { username } = this.props.user;
+    const { resetLogin } = this.props;
+
+    if (username) {
       Actions.appScreen({
         type: ActionConst.REPLACE
       });
     } else {
-      this.props.reset();
+      resetLogin();
     }
   }
 
@@ -72,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
     openSignupPage: () => dispatch(LoginActions.openSignupPage()),
     openLoginPage: () => dispatch(LoginActions.openLoginPage()),
     login: () => dispatch(UserActions.loginUser('tricycle')),
-    reset: () => dispatch(LoginActions.reset())
+    resetLogin: () => dispatch(LoginActions.resetLogin())
   };
 };
 
