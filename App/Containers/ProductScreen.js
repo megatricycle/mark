@@ -10,6 +10,7 @@ import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getProductById } from '../Selectors/ProductsSelector';
 import ProductActions from '../Redux/ProductRedux';
+import ManualActions from '../Redux/ManualRedux';
 import { Actions } from 'react-native-router-flux';
 
 // Styles
@@ -17,6 +18,19 @@ import styles from './Styles/ProductScreenStyle';
 import { Images } from '../Themes';
 
 class ProductScreen extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.handlePressManual = this.handlePressManual.bind(this);
+  }
+
+  handlePressManual (manualId) {
+    const { setSelectedManual } = this.props;
+
+    setSelectedManual(manualId);
+    Actions.manualScreen();
+  }
+
   componentWillMount () {
     const { hideDescription } = this.props;
 
@@ -26,6 +40,7 @@ class ProductScreen extends React.Component {
   render () {
     const { showDescription } = this.props;
     const { isDescriptionShown, product } = this.props.product;
+    const { handlePressManual } = this;
 
     return (
       <View style={styles.contentContainer}>
@@ -87,7 +102,7 @@ class ProductScreen extends React.Component {
                   <ListItem
                     key={i}
                     title={manual.name}
-                    onPress={() => { Actions.manualScreen(); }}
+                    onPress={() => { handlePressManual(manual.id); }}
                   />
                 )}
               </List>
@@ -110,7 +125,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     hideDescription: () => dispatch(ProductActions.hideDescription()),
-    showDescription: () => dispatch(ProductActions.showDescription())
+    showDescription: () => dispatch(ProductActions.showDescription()),
+    setSelectedManual: (manualId) => dispatch(ManualActions.setSelectedManual(manualId))
   };
 };
 

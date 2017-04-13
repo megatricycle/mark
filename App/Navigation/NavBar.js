@@ -7,6 +7,7 @@ import NavBarActions from '../Redux/NavBarRedux';
 import SearchActions from '../Redux/SearchRedux';
 import SearchResults from '../Components/SearchResults';
 import { getProductById } from '../Selectors/ProductsSelector';
+import { getManual } from '../Selectors/ManualsSelector';
 
 import styles from './Styles/CustomNavBarStyles';
 import { Colors } from '../Themes';
@@ -39,8 +40,8 @@ class NavBar extends React.Component {
     if (selectedProduct) {
       if (title === 'productScreen' && newProps.navBar.title !== newProps.selectedProduct.name) {
         setTitle(newProps.selectedProduct.name);
-      } else if (title === 'manualScreen' && newProps.navBar.title !== 'Assembling the Container') {
-        setTitle('Assembling the Container');
+      } else if (title === 'manualScreen' && newProps.navBar.title !== newProps.selectedManual.name) {
+        setTitle(newProps.selectedManual.name);
       }
     }
   }
@@ -91,7 +92,8 @@ const mapStateToProps = (state) => {
     navigation: state.navigation,
     navBar: state.navBar,
     search: state.search,
-    selectedProduct: getProductById(state)
+    selectedProduct: getProductById(state),
+    selectedManual: getManual(state)
   };
 };
 

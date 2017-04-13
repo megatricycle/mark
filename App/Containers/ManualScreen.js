@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
+import { getManual } from '../Selectors/ManualsSelector';
 import ARActivity from '../Services/ARActivity';
 
 // Styles
@@ -14,15 +15,21 @@ class ManualScreen extends React.Component {
 
   render () {
     const { startAR } = this;
+    const { manual } = this.props;
 
     return (
       <View style={styles.container}>
         <ScrollView style={styles.manualContainer} contentContainerStyle={styles.manualContentContainer}>
-          <Text style={styles.summary}>{'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.'}</Text>
+          <Text style={styles.summary}>{manual.summary}</Text>
           <Text style={styles.stepsHeader}>{'Steps'}</Text>
-          <Text style={styles.step}>{'1. Unscrew the screw.'}</Text>
-          <Text style={styles.step}>{'2. Glue the lid.'}</Text>
-          <Text style={styles.step}>{'3. Eat popcorn.'}</Text>
+          {manual.step.map((step, i) =>
+            <Text
+              style={styles.step}
+              key={i}
+            >
+              {(i + 1) + '. ' + step.instruction}
+            </Text>
+          )}
         </ScrollView>
 
         <Button
@@ -38,6 +45,7 @@ class ManualScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    manual: getManual(state)
   };
 };
 
