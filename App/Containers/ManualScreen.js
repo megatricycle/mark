@@ -9,8 +9,16 @@ import ARActivity from '../Services/ARActivity';
 import styles from './Styles/ManualScreenStyle';
 
 class ManualScreen extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.startAR = this.startAR.bind(this);
+  }
+
   startAR () {
-    ARActivity.startActivity();
+    const { steps } = this.props.manual;
+
+    ARActivity.startActivity(steps);
   }
 
   render () {
@@ -22,7 +30,7 @@ class ManualScreen extends React.Component {
         <ScrollView style={styles.manualContainer} contentContainerStyle={styles.manualContentContainer}>
           <Text style={styles.summary}>{manual.summary}</Text>
           <Text style={styles.stepsHeader}>{'Steps'}</Text>
-          {manual.step.map((step, i) =>
+          {manual.steps.map((step, i) =>
             <Text
               style={styles.step}
               key={i}

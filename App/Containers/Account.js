@@ -3,6 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem, Avatar } from 'react-native-elements';
 import UserActions from '../Redux/UserRedux';
+import LoadingModal from '../Components/LoadingModal';
 
 // Styles
 import styles from './Styles/AccountStyle';
@@ -10,13 +11,28 @@ import styles from './Styles/AccountStyle';
 class Account extends React.Component {
   render () {
     const { logout } = this.props;
+    const { isLoggingOut, username } = this.props.user;
+
+    if (!username) return <View />;
+
+    const usernameInitial = username
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase())
+      .join('');
 
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        { isLoggingOut
+          ? <LoadingModal
+            text={'Logging out'}
+          />
+          : <View />
+        }
+
         <View style={{flex: 1, marginVertical: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
           <Avatar
             rounded
-            title='M'
+            title={usernameInitial}
             activeOpacity={0.7}
             width={70}
             height={70}
@@ -24,7 +40,7 @@ class Account extends React.Component {
             containerStyle={styles.avatarContainer}
             overlayContainerStyle={styles.overlay}
           />
-          <Text style={styles.username}>megatricycle</Text>
+          <Text style={styles.username}>{username}</Text>
         </View>
 
         <List containerStyle={styles.list}>
@@ -43,13 +59,13 @@ class Account extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-
+    user: state.user
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(UserActions.logout())
+    logout: () => dispatch(UserActions.requestLogout())
   };
 };
 

@@ -27,15 +27,27 @@ export const INITIAL_STATE = Immutable({
       id: 0,
       name: 'Assembling the Container',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }, {
       id: 1,
       name: 'Maintaining the Composure',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }]
   }, {
@@ -52,15 +64,23 @@ export const INITIAL_STATE = Immutable({
       id: 0,
       name: 'Assembling the Container',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }, {
       id: 1,
       name: 'Maintaining the Composure',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
       }]
     }]
   }, {
@@ -77,15 +97,27 @@ export const INITIAL_STATE = Immutable({
       id: 0,
       name: 'Assembling the Container',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }, {
       id: 1,
       name: 'Maintaining the Composure',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }]
   }, {
@@ -102,15 +134,27 @@ export const INITIAL_STATE = Immutable({
       id: 0,
       name: 'Assembling the Container',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }, {
       id: 1,
       name: 'Maintaining the Composure',
       summary: 'Vestibulum eleifend imperdiet felis. Ut eleifend risus sed tristique scelerisque. Mauris magna risus, porttitor vitae nulla eu, molestie volutpat eros. Suspendisse ac metus aliquet, sodales nulla sit amet, ullamcorper nulla. Curabitur ultricies vulputate commodo. Nullam sed tincidunt nisl, a rhoncus mi. Integer consectetur efficitur condimentum.',
-      step: [{
-        instruction: 'Point your camera at the object.'
+      steps: [{
+        instruction: 'Point your camera at the rocks.',
+        imageTarget: 'target.jpg',
+        model: 'ben'
+      }, {
+        instruction: 'Point your camera at the space marker.',
+        imageTarget: 'spaceMarker.jpg',
+        model: 'ben'
       }]
     }]
   }]

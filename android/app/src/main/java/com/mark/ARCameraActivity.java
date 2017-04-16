@@ -1,29 +1,44 @@
 package com.mark;
 
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Surface;
 import android.widget.ImageButton;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import eu.kudan.kudan.ARAPIKey;
 import eu.kudan.kudan.ARActivity;
+import eu.kudan.kudan.ARImageTrackable;
+import eu.kudan.kudan.ARImageTracker;
+import eu.kudan.kudan.ARLightMaterial;
+import eu.kudan.kudan.ARMeshNode;
+import eu.kudan.kudan.ARModelImporter;
+import eu.kudan.kudan.ARModelNode;
+import eu.kudan.kudan.ARTexture2D;
+import eu.kudan.kudan.ARWorld;
 
 public class ARCameraActivity extends ARActivity {
-    ARAPIKey key = ARAPIKey.getInstance();
-    Bundle instanceState;
+    private ARAPIKey key = ARAPIKey.getInstance();
+    private Bundle instanceState;
+    private ARImageTracker trackableManager;
+    private ArrayList<Step> steps;
 
-    ImageButton closeButton;
+    private ImageButton closeButton;
+
+    private int currentStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.currentStep = 0;
         this.instanceState = savedInstanceState;
 
         super.onCreate(savedInstanceState);
 
-        key.setAPIKey("sVmoznmKZ+4nFEHD6HoslwpC26PNuBZGHrikUwyon2BKSvza1yu2CqbSrae+pHPr1NHjhsf5pHQOZn8IEqXlqXFodGsrOJhxJANbMOdvnRLUi9/QWGqyRL9FViDmyohw6e5R7U4Ex8H7d7spLLvhfp5HFv56DgLr8c8sC2ipDtv9g1IjOTaY7UGxata3eulG2A/UkIdRv2NcotZXqan01xQUWFAislEwlGguParEYiwu11T4mqtU3dQBbfxpvxbczjdYz493YG3rAO2RHgT+5M5TJShJsz2irkNo71JD2Fzqf4AR2b4+7t1c55zKjegXzGS6Xa/rpNn9yiXUn7rUYIHNvN3cEQa9HsZiVxAV4vJgxFS+T/AxfWqKrEg1uj6xF5MsodZ2EkZ8mqliYIsxZqnFz+Re2HeWG8wvrEob0ZwRIO0TxppAemZc3HChTAPLcNt5gzeBk0oRP4wnrFAFFBDi8XjDocwTSVw++hWZb1qNHzt6bKLsMDRT057UVuuZB6M8f7EOQD79Oah0Vrx/3DUK6e9BEV8oGFNHtk1wyYEkg0i6RLhVSokGx//Qj36A4gCz3h1OjtfB0OuukbNq7xI1L/FcNQLmGYNGZwszARjGr9ESw1gVAkbQMxaV27uo/KoIq4+nR7RL8iT7t7NAaXCFIi24RR+7WGjTvKqWYjA=");
+        key.setAPIKey("DvGgqRdRiqcLcaMF+C74R6sm+Of21GxnfSClWVskgcs/McOz6egP/eKBQNjeyEuUSDZ9b/t1kDmZ6pKSyHvPBELJxSq+fDZv4+6Q+YTwCps2BGXwafiIZ1XYUsrFuPgkGpu2arzufThmpox+A31UU++Sjr0cVCtfSgnTz94Dv04/kfgHsKMPumbvKsRkyKHySIJ0B6Lg8NAi2P11ozysgMiV1fIOvwUK+TOnmiXDDmzwuVrnQKe9eAEYpXm0fJUpCpojCbZdPyxAo6MxIFnDZFINxTbGRbZ4CqmMxTuvv6Sx1GowXttyMBahK6iYzxbOBh+s1aVB8LCjvv6+PjH86J/sTtU/C04L7pa72KyEQRUSxaT6IRUfRqMT0bzgv/8eCSwzpVwilqWZWAB/6M027/iVXWsOWVb781JmYX1IqJzSC4OG70ACteWqlzlaIg+MDDcHkjPmFOS6ejxLxNkOezsxLGlvVrkP24NFIgxHb99iGP+Q2u8Gj0M4Jmvr4UY4Bx11AAaM7LVOCw76gFLS/w5AK4F2r3PZboEEL8/hExZezIOHyGMJeFOtDGE0oTiuvd/DlnuCX5vw4AcsJIPpR0a4ofcI7Wt+LUjSNpWYhkTVyYFtS5y/C5Ew8s6m75pRr5OFCcbMfrzykYIIUE3K1ZEIU9cdDa1qynXeNap2RoI=");
 
         setContentView(R.layout.activity_sampling);
 
@@ -35,6 +50,117 @@ public class ARCameraActivity extends ARActivity {
                 finish();
             }
         });
+
+        this.steps = getIntent().getParcelableArrayListExtra("STEPS");
+    }
+
+    public void setup() {
+        this.trackableManager = ARImageTracker.getInstance();
+
+        initializeTrackables();
+
+        renderStep(0);
+    }
+
+    private void renderStep(int stepIndex) {
+        // set UI elements to step
+        TextView stepPagination = (TextView) findViewById(R.id.textView2);
+        TextView instruction = (TextView) findViewById(R.id.textView);
+
+        stepPagination.setText((stepIndex + 1) + "/" + this.steps.size());
+        instruction.setText(this.steps.get(stepIndex).getInstruction());
+
+        renderButtons();
+
+        // set 3d models visibility for each step
+        for(int i = 0; i < this.trackableManager.getTrackables().size(); i++) {
+            ARWorld world = this.trackableManager.getTrackables().get(i).getWorld();
+
+            for(int j = 0; j < world.getChildren().size(); j++) {
+                world.getChildren().get(j).setVisible(i == stepIndex);
+            }
+        }
+    }
+
+    public void nextStep(View view) {
+        if(this.currentStep < this.steps.size() - 1) {
+            this.currentStep++;
+            renderStep(this.currentStep);
+        }
+    }
+
+    public void prevStep(View view) {
+        if(this.currentStep > 0) {
+            this.currentStep--;
+            renderStep(this.currentStep);
+
+            ImageButton prevButton = (ImageButton) findViewById(R.id.imageButton2);
+        }
+    }
+
+    private void renderButtons() {
+        ImageButton nextButton = (ImageButton) findViewById(R.id.imageButton);
+        ImageButton prevButton = (ImageButton) findViewById(R.id.imageButton2);
+        TextView stepPagination = (TextView) findViewById(R.id.textView2);
+
+
+        if(this.steps.size() == 1) {
+            nextButton.setVisibility(View.INVISIBLE);
+            prevButton.setVisibility(View.INVISIBLE);
+            stepPagination.setVisibility(View.INVISIBLE);
+        }
+        else if(this.currentStep == 0) {
+            nextButton.setVisibility(View.VISIBLE);
+            prevButton.setVisibility(View.INVISIBLE);
+        }
+        else if(this.currentStep == this.steps.size() - 1) {
+            nextButton.setVisibility(View.INVISIBLE);
+            prevButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            nextButton.setVisibility(View.VISIBLE);
+            prevButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initializeTrackables() {
+        for(int i = 0; i < this.steps.size(); i++) {
+            Step step = this.steps.get(i);
+
+            // create the image target
+            ARImageTrackable trackable = new ARImageTrackable(i + "");
+            trackable.loadFromAsset(step.getImageTarget());
+            trackable.setExtensible(true);
+
+            // attach the model to the image target
+            // Import model
+            ARModelImporter modelImporter = new ARModelImporter();
+            modelImporter.loadFromAsset(step.getModel() + "/model.jet");
+            ARModelNode modelNode = (ARModelNode)modelImporter.getNode();
+
+            // Load model texture
+            ARTexture2D texture2D = new ARTexture2D();
+            texture2D.loadFromAsset(step.getModel() + "/texture.png");
+
+            // Apply model texture to model texture material
+            ARLightMaterial material = new ARLightMaterial();
+            material.setTexture(texture2D);
+            material.setAmbient(0.8f, 0.8f, 0.8f);
+
+            // Apply texture material to models mesh nodes
+            for(ARMeshNode meshNode : modelImporter.getMeshNodes()){
+                meshNode.setMaterial(material);
+            }
+
+            modelNode.rotateByDegrees(90,1,0,0);
+            modelNode.scaleByUniform(0.1f);
+
+            // Add model node to image trackable
+            trackable.getWorld().addChild(modelNode);
+            trackable.getWorld().setVisible(false);
+
+            this.trackableManager.addTrackable(trackable);
+        }
     }
 
     @Override
