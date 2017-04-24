@@ -1,39 +1,25 @@
-// import { put, select } from 'redux-saga/effects';
-// import { is } from 'ramda';
+import { call, put } from 'redux-saga/effects';
+import _ from 'lodash';
 
-// exported to make available for tests
-// export const selectAvatar = (state) => state.github.avatar;
+import StartupActions from '../Redux/StartupRedux';
+import UserActions from '../Redux/UserRedux';
 
-// process STARTUP actions
-export function * startup (action) {
-  if (__DEV__ && console.tron) {
-    // straight-up string logging
-    // console.tron.log('Hello, I\'m an example of how to log via Reactotron.');
+export function * startup (api, action) {
+  const response = yield call(api.whoami);
 
-    // logging an object for better clarity
-    // console.tron.log({
-    //   message: 'pass objects for better logging',
-    //   someGeneratorFunction: selectAvatar
-    // });
+  if (response.ok) {
+    const user = response.data;
 
-    // fully customized!
-    // const subObject = { a: 1, b: [1, 2, 3], c: true };
-    // subObject.circularDependency = subObject; // osnap!
-    // console.tron.display({
-    //   name: '🔥 IGNITE 🔥',
-    //   preview: 'You should totally expand this',
-    //   value: {
-    //     '💃': 'Welcome to the future!',
-    //     subObject,
-    //     someInlineFunction: () => true,
-    //     someGeneratorFunction: startup,
-    //     someNormalFunction: selectAvatar
-    //   }
-    // });
+    if (_.isEmpty(user)) {
+      yield put(UserActions.logout());
+    } else {
+      const { username, id } = user;
+
+      yield put(UserActions.loginUser(username, id));
+    }
+
+    yield put(StartupActions.start());
   }
-  // const avatar = yield select(selectAvatar);
-  // only get if we don't have it yet
-  // if (!is(String, avatar)) {
-  //   yield put(GithubActions.userRequest('GantMan'));
-  // }
+
+  // @TODO: error
 }

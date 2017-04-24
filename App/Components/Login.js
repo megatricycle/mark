@@ -12,8 +12,27 @@ import styles from './Styles/LoginStyle';
 import { Colors, Images } from '../Themes';
 
 export default class Login extends React.Component {
+  constructor () {
+    super();
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin () {
+    const { requestLogin } = this.props;
+    const { username, password } = this.refs;
+
+    requestLogin(username.state.text, password.state.text);
+  }
+
   render () {
-    const { requestLogin, openSignup, isLoggingIn } = this.props;
+    const { openSignup, isLoggingIn } = this.props;
+    const { handleLogin } = this;
 
     return (
       <View>
@@ -29,6 +48,7 @@ export default class Login extends React.Component {
           />
         </View>
         <TextField
+          ref={'username'}
           label={'Username'}
           labelColor={Colors.white}
           textColor={Colors.white}
@@ -36,6 +56,7 @@ export default class Login extends React.Component {
           selectionColor={Colors.accent}
         />
         <TextField
+          ref={'password'}
           label={'Password'}
           labelColor={Colors.white}
           textColor={Colors.white}
@@ -45,9 +66,8 @@ export default class Login extends React.Component {
         />
         <View style={styles.loginButton}>
           <Button
-            ref={'loginButton'}
             title={'Login'}
-            onPress={() => { requestLogin('tricycle'); }}
+            onPress={handleLogin}
             color={Colors.accent}
           />
         </View>

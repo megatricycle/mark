@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     openSignupPage: () => dispatch(LoginActions.openSignupPage()),
     openLoginPage: () => dispatch(LoginActions.openLoginPage()),
-    requestLogin: (username) => dispatch(LoginActions.requestLogin(username)),
+    requestLogin: (username, password) => dispatch(LoginActions.requestLogin(username, password)),
     resetLogin: () => dispatch(LoginActions.resetLogin())
   };
 };

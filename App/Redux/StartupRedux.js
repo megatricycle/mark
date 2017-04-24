@@ -4,7 +4,8 @@ import Immutable from 'seamless-immutable';
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  startup: null
+  startup: null,
+  start: null
 });
 
 export const StartupTypes = Types;
@@ -14,10 +15,10 @@ export const INITIAL_STATE = Immutable({
   started: false
 });
 
-export const startApp = (state) => {
+export const start = (state) => {
   return state.merge({ started: true });
 };
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.STARTUP]: startApp
+  [Types.START]: start
 });

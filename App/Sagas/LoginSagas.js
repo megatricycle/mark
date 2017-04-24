@@ -1,15 +1,22 @@
 import { call, put } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import UserActions from '../Redux/UserRedux';
 
-export function * login (action) {
-  yield call(delay, 3000);
+export function * login (api, { username, password }) {
+  const response = yield call(api.login, username, password);
 
-  yield put(UserActions.loginUser('tricycle', 0));
+  if (response.ok) {
+    const { id, username } = response.data;
+
+    yield put(UserActions.loginUser(username, id));
+  }
+  // @TODO: login fail
 }
 
-export function * logout (action) {
-  yield call(delay, 3000);
+export function * logout (api, action) {
+  const response = yield call(api.logout);
 
-  yield put(UserActions.logout());
+  if (response.ok) {
+    yield put(UserActions.logout());
+  }
+  // @TODO: logout fail
 }

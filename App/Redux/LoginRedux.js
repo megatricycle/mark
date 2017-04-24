@@ -7,7 +7,7 @@ const { Types, Creators } = createActions({
   openSignupPage: null,
   openLoginPage: null,
   resetLogin: null,
-  requestLogin: ['username']
+  requestLogin: ['username', 'password']
 });
 
 export const LoginTypes = Types;
