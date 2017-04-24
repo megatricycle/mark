@@ -55,6 +55,13 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
   const logout = () =>
     api.post('session/logout');
 
+  const signup = (username, password) =>
+    api.post('users/signup', {
+      username,
+      password,
+      userType: 'consumer'
+    });
+
   // ------
   // STEP 3
   // ------
@@ -71,7 +78,8 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
     // a list of the API functions from step 2
     login,
     logout,
-    whoami
+    whoami,
+    signup
   };
 };
 

@@ -4,6 +4,7 @@ import API from '../Services/Api';
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux';
+import { SignupTypes } from '../Redux/SignupRedux';
 import { LoginTypes } from '../Redux/LoginRedux';
 import { UserTypes } from '../Redux/UserRedux';
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux';
@@ -12,6 +13,7 @@ import { OpenScreenTypes } from '../Redux/OpenScreenRedux';
 
 import { startup } from './StartupSagas';
 import { login, logout } from './LoginSagas';
+import { signup } from './SignupSagas';
 import { openScreen } from './OpenScreenSagas';
 
 /* ------------- API ------------- */
@@ -24,13 +26,10 @@ const api = API.create();
 
 export default function * root () {
   yield [
-    // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup, api),
     takeLatest(LoginTypes.REQUEST_LOGIN, login, api),
     takeLatest(UserTypes.REQUEST_LOGOUT, logout, api),
-    takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen)
-
-    // some sagas receive extra parameters in addition to an action
-    // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
+    takeLatest(SignupTypes.REQUEST_SIGNUP, signup, api)
   ];
 }

@@ -6,16 +6,38 @@ import {
 } from 'react-native';
 import TextField from 'react-native-md-textinput';
 import styles from './Styles/SignupStyle';
+import LoadingModal from './LoadingModal';
 import { Colors } from '../Themes';
 
 export default class Signup extends React.Component {
+  handleSignup = () => {
+    const { username, password } = this.refs;
+    const { requestSignup } = this.props;
+
+    requestSignup(username.state.text, password.state.text);
+  }
+
   render () {
-    const { openLogin } = this.props;
+    const { openLogin, isSigningUp, isLoggingIn } = this.props;
+    const { handleSignup } = this;
 
     return (
       <View style={styles.container}>
+        {isSigningUp
+          ? <LoadingModal
+            text={'Creating your account'}
+          />
+          : <View />
+        }
+        {isLoggingIn
+          ? <LoadingModal
+            text={'Logging in'}
+          />
+          : <View />
+        }
         <Text style={styles.signupText}>Sign Up</Text>
         <TextField
+          ref={'username'}
           label={'Username'}
           labelColor={Colors.white}
           textColor={Colors.white}
@@ -23,15 +45,8 @@ export default class Signup extends React.Component {
           selectionColor={Colors.accent}
         />
         <TextField
+          ref={'password'}
           label={'Password'}
-          labelColor={Colors.white}
-          textColor={Colors.white}
-          highlightColor={Colors.accent}
-          selectionColor={Colors.accent}
-          secureTextEntry
-        />
-        <TextField
-          label={'Confirm your Password'}
           labelColor={Colors.white}
           textColor={Colors.white}
           highlightColor={Colors.accent}
@@ -41,7 +56,7 @@ export default class Signup extends React.Component {
         <View style={styles.signupButton}>
           <Button
             title={'Sign up'}
-            onPress={() => {}}
+            onPress={handleSignup}
             color={Colors.accent}
           />
         </View>
@@ -55,14 +70,3 @@ export default class Signup extends React.Component {
     );
   }
 }
-
-// // Prop type warnings
-// Signup.propTypes = {
-//   someProperty: React.PropTypes.object,
-//   someSetting: React.PropTypes.bool.isRequired
-// }
-//
-// // Defaults for props
-// Signup.defaultProps = {
-//   someSetting: false
-// }

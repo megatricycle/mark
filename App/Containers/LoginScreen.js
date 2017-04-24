@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import LoginActions from '../Redux/LoginRedux';
+import SignupActions from '../Redux/SignupRedux';
 import Login from '../Components/Login';
 import Signup from '../Components/Signup';
 
@@ -39,7 +40,14 @@ class LoginScreen extends React.Component {
 
   render () {
     const { page, isLoggingIn } = this.props.loginPage;
-    const { openSignupPage, openLoginPage, requestLogin } = this.props;
+    const { isSigningUp } = this.props.signup;
+    const {
+      openSignupPage,
+      openLoginPage,
+      requestLogin,
+      requestSignup,
+      resetSignup
+    } = this.props;
 
     return (
       <ScrollView
@@ -55,6 +63,10 @@ class LoginScreen extends React.Component {
             />
             : <Signup
               openLogin={openLoginPage}
+              isSigningUp={isSigningUp}
+              requestSignup={requestSignup}
+              resetSignup={resetSignup}
+              isLoggingIn={isLoggingIn}
             />
           }
         </View>
@@ -66,6 +78,7 @@ class LoginScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loginPage: state.loginPage,
+    signup: state.signup,
     user: state.user
   };
 };
@@ -75,7 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     openSignupPage: () => dispatch(LoginActions.openSignupPage()),
     openLoginPage: () => dispatch(LoginActions.openLoginPage()),
     requestLogin: (username, password) => dispatch(LoginActions.requestLogin(username, password)),
-    resetLogin: () => dispatch(LoginActions.resetLogin())
+    resetLogin: () => dispatch(LoginActions.resetLogin()),
+    requestSignup: (username, password) => dispatch(SignupActions.requestSignup(username, password)),
+    resetSignup: () => dispatch(SignupActions.resetSignup())
   };
 };
 
