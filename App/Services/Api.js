@@ -62,6 +62,15 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
       userType: 'consumer'
     });
 
+  const getUserSubscriptions = (userId) =>
+    api.get(`users/${userId}/subscriptions`);
+
+  const getProductManuals = (productId) =>
+    api.get(`products/${productId}/manuals`);
+
+  const getProductManual = (productId, manualId) =>
+    api.get(`products/${productId}/manuals/${manualId}`);
+
   // ------
   // STEP 3
   // ------
@@ -79,7 +88,10 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
     login,
     logout,
     whoami,
-    signup
+    signup,
+    getUserSubscriptions,
+    getProductManuals,
+    getProductManual
   };
 };
 

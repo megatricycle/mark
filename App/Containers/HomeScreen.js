@@ -35,9 +35,16 @@ class HomeScreen extends React.Component {
     }
   }
 
+  handleChangeTabSubscriptions = () => {
+    const { changeTab } = this.props;
+
+    changeTab(TabNames.SUBSCRIPTIONS);
+  }
+
   render () {
     const { changeTab } = this.props;
     const { currentTab } = this.props.home;
+    const { handleChangeTabSubscriptions } = this;
 
     return (
       <View style={styles.container}>
@@ -62,7 +69,7 @@ class HomeScreen extends React.Component {
             title={currentTab === TabNames.SUBSCRIPTIONS ? 'Subscriptions' : null}
             renderIcon={() => <Icon containerStyle={styles.icon} color={'#5e6977'} name='view-module' size={33} />}
             renderSelectedIcon={() => <Icon color={Colors.accent} name='view-module' size={30} />}
-            onPress={() => { changeTab(TabNames.SUBSCRIPTIONS); }}
+            onPress={handleChangeTabSubscriptions}
           >
             <View style={[styles.homepageView]}>
               <Subscriptions />

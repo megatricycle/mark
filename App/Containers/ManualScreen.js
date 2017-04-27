@@ -3,6 +3,7 @@ import { View, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import { getManual } from '../Selectors/ManualsSelector';
+import ProductsActions from '../Redux/ProductsRedux';
 import ARActivity from '../Services/ARActivity';
 
 // Styles
@@ -21,6 +22,14 @@ class ManualScreen extends React.Component {
     ARActivity.startActivity(steps);
   }
 
+  componentWillMount () {
+    const { requestSetProductManual } = this.props;
+    const { selectedProductId: productId } = this.props.product;
+    const { id: manualId } = this.props.manual;
+
+    requestSetProductManual(productId, manualId);
+  }
+
   render () {
     const { startAR } = this;
     const { manual } = this.props;
@@ -30,7 +39,7 @@ class ManualScreen extends React.Component {
         <ScrollView style={styles.manualContainer} contentContainerStyle={styles.manualContentContainer}>
           <Text style={styles.summary}>{manual.summary}</Text>
           <Text style={styles.stepsHeader}>{'Steps'}</Text>
-          {manual.steps.map((step, i) =>
+          {manual.steps && manual.steps.map((step, i) =>
             <Text
               style={styles.step}
               key={i}
@@ -53,12 +62,14 @@ class ManualScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    manual: getManual(state)
+    manual: getManual(state),
+    product: state.product
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    requestSetProductManual: (productId, manualId) => dispatch(ProductsActions.requestSetProductManual(productId, manualId))
   };
 };
 

@@ -5,6 +5,7 @@ import { List, ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { getSubscribedProducts } from '../Selectors/ProductsSelector';
 import ProductActions from '../Redux/ProductRedux';
+import ProductsActions from '../Redux/ProductsRedux';
 import _ from 'lodash';
 
 // Styles
@@ -25,11 +26,18 @@ class Subscriptions extends React.Component {
     Actions.productScreen();
   }
 
+  componentWillMount () {
+    const { requestSyncSubscriptions } = this.props;
+    const { userId } = this.props.user;
+
+    requestSyncSubscriptions(userId);
+  }
+
   render () {
     const { products } = this.props.products;
     const { handleProductPress } = this;
 
-    const groupedProducts = Object.entries(_.groupBy(products, (product) => product.provider))
+    const groupedProducts = Object.entries(_.groupBy(products, (product) => product.user.username))
       .map(([prop, value]) => ({ provider: prop, products: value }));
 
     return (
@@ -57,13 +65,15 @@ class Subscriptions extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: getSubscribedProducts(state.products)
+    products: getSubscribedProducts(state.products),
+    user: state.user
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSelectedProduct: (productId) => dispatch(ProductActions.setSelectedProduct(productId))
+    setSelectedProduct: (productId) => dispatch(ProductActions.setSelectedProduct(productId)),
+    requestSyncSubscriptions: (userId) => dispatch(ProductsActions.requestSyncSubscriptions(userId))
   };
 };
 

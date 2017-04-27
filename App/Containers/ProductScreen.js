@@ -10,6 +10,7 @@ import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getProductById } from '../Selectors/ProductsSelector';
 import ProductActions from '../Redux/ProductRedux';
+import ProductsActions from '../Redux/ProductsRedux';
 import ManualActions from '../Redux/ManualRedux';
 import { Actions } from 'react-native-router-flux';
 
@@ -32,9 +33,11 @@ class ProductScreen extends React.Component {
   }
 
   componentWillMount () {
-    const { hideDescription } = this.props;
+    const { hideDescription, requestUpdateProduct } = this.props;
+    const { selectedProductId } = this.props.product;
 
     hideDescription();
+    requestUpdateProduct(selectedProductId);
   }
 
   render () {
@@ -75,14 +78,14 @@ class ProductScreen extends React.Component {
               <Text
                 style={styles.productShortDescription}
               >
-                {product.description.summary}
+                {product.descriptionSummary}
               </Text>
 
               { isDescriptionShown
                 ? <Text
                   style={styles.productDescription}
                   >
-                  {product.description.detail}
+                  {product.descriptionDetail}
                 </Text>
                 : <TouchableNativeFeedback onPress={showDescription}>
                   <View style={styles.showMoreButtonContainer}>
@@ -94,19 +97,20 @@ class ProductScreen extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.manualsHeader}>Manuals</Text>
-
-            {product.manuals.length > 0
-              ? <List containerStyle={styles.listContainer}>
-                {product.manuals.map((manual, i) =>
-                  <ListItem
-                    key={i}
-                    title={manual.name}
-                    onPress={() => { handlePressManual(manual.id); }}
-                  />
-                )}
-              </List>
-              : <Text>No manuals for this product.</Text>
+            {product.manuals && product.manuals.length > 0
+              ? <View>
+                <Text style={styles.manualsHeader}>Manuals</Text>
+                <List containerStyle={styles.listContainer}>
+                  {product.manuals.map((manual, i) =>
+                    <ListItem
+                      key={i}
+                      title={manual.name}
+                      onPress={() => { handlePressManual(manual.id); }}
+                    />
+                  )}
+                </List>
+              </View>
+              : <View />
             }
 
           </View>
@@ -126,7 +130,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hideDescription: () => dispatch(ProductActions.hideDescription()),
     showDescription: () => dispatch(ProductActions.showDescription()),
-    setSelectedManual: (manualId) => dispatch(ManualActions.setSelectedManual(manualId))
+    setSelectedManual: (manualId) => dispatch(ManualActions.setSelectedManual(manualId)),
+    requestUpdateProduct: (productId) => dispatch(ProductsActions.requestUpdateProduct(productId))
   };
 };
 
