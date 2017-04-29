@@ -5,7 +5,8 @@ import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
   setSearchTerm: ['term'],
-  resetSearch: null
+  resetSearch: null,
+  requestSearchProducts: ['query']
 });
 
 export const SearchTypes = Types;

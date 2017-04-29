@@ -1,11 +1,12 @@
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
+import _ from 'lodash';
 
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
   requestSyncSubscriptions: ['userId'],
-  syncSubscriptions: ['products'],
+  syncProducts: ['products'],
   requestUpdateProduct: ['productId'],
   setProductManuals: ['productId', 'manuals'],
   requestSetProductManual: ['productId', 'manualId'],
@@ -28,8 +29,22 @@ export const INITIAL_STATE = Immutable({
 export const requestSyncSubscriptions = (state) =>
   state.merge({ isSyncingSubscriptions: true });
 
-export const syncSubscriptions = (state, { products }) =>
-  state.merge({ products, isSyncingSubscriptions: false });
+export const syncProducts = (state, { products }) => {
+  return state.merge({
+    products: [
+      ...state.products.map(product => {
+        return _.find(products, { id: product.id })
+          ? {
+            ...product,
+            ..._.find(products, { id: product.id })
+          }
+          : product;
+      }),
+      ..._.differenceBy(products, state.products, 'id')
+    ],
+    isSyncingSubscriptions: false
+  });
+};
 
 export const requestUpdateProduct = (state) =>
   state.merge({ isUpdatingProduct: true });
@@ -76,7 +91,7 @@ export const setProductManual = (state, { productId, newManual }) => {
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.SYNC_SUBSCRIPTIONS]: syncSubscriptions,
+  [Types.SYNC_PRODUCTS]: syncProducts,
   [Types.REQUEST_UPDATE_PRODUCT]: requestUpdateProduct,
   [Types.SET_PRODUCT_MANUALS]: setProductManuals,
   [Types.SET_PRODUCT_MANUAL]: setProductManual

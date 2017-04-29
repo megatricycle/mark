@@ -7,38 +7,41 @@ import styles from './Styles/SearchResultsStyle';
 import { Images } from '../Themes';
 
 export default class SearchResults extends React.Component {
+  handleProductPress = (productId) => {
+    const { setSelectedProduct } = this.props;
+
+    setSelectedProduct(productId);
+    Actions.productScreen();
+  }
+
   render () {
+    const { products } = this.props;
+    const { handleProductPress } = this;
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
-          <Text style={styles.resultsHeader}>Results</Text>
+          {products.length > 0
+            ? <View>
+              <Text style={styles.resultsHeader}>Results</Text>
 
-          <List containerStyle={styles.listContainer}>
-            <ListItem
-              key={1}
-              avatar={Images.dummy}
-              roundAvatar
-              title={'GearVR'}
-              subtitle={<Text style={styles.subtitle}>Samsung</Text>}
-              onPress={() => { Actions.productScreen(); }}
-              />
-            <ListItem
-              key={2}
-              avatar={Images.dummy}
-              roundAvatar
-              title={'GearVR'}
-              subtitle={<Text style={styles.subtitle}>Samsung</Text>}
-              onPress={() => { Actions.productScreen(); }}
-              />
-            <ListItem
-              key={3}
-              avatar={Images.dummy}
-              roundAvatar
-              title={'GearVR'}
-              subtitle={<Text style={styles.subtitle}>Samsung</Text>}
-              onPress={() => { Actions.productScreen(); }}
-              />
-          </List>
+              <List containerStyle={styles.listContainer}>
+                {products.map(product =>
+                  <ListItem
+                    key={product.id}
+                    avatar={Images.dummy}
+                    roundAvatar
+                    title={product.name}
+                    subtitle={<Text style={styles.subtitle}>{product.user.username}</Text>}
+                    onPress={() => { handleProductPress(product.id); }}
+                    />
+                  )}
+              </List>
+            </View>
+            : <View style={styles.noResultContainer}>
+              <Text style={styles.noResultText}>No result.</Text>
+            </View>
+          }
         </ScrollView>
       </View>
     );

@@ -33,11 +33,15 @@ class ProductScreen extends React.Component {
   }
 
   componentWillMount () {
-    const { hideDescription, requestUpdateProduct } = this.props;
-    const { selectedProductId } = this.props.product;
+    const { hideDescription, requestUpdateProduct, requestGetProduct } = this.props;
+    const { selectedProductId, product } = this.props.product;
 
     hideDescription();
-    requestUpdateProduct(selectedProductId);
+    requestGetProduct(selectedProductId);
+
+    if (product.isSubscribed) {
+      requestUpdateProduct(selectedProductId);
+    }
   }
 
   render () {
@@ -131,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
     hideDescription: () => dispatch(ProductActions.hideDescription()),
     showDescription: () => dispatch(ProductActions.showDescription()),
     setSelectedManual: (manualId) => dispatch(ManualActions.setSelectedManual(manualId)),
-    requestUpdateProduct: (productId) => dispatch(ProductsActions.requestUpdateProduct(productId))
+    requestUpdateProduct: (productId) => dispatch(ProductsActions.requestUpdateProduct(productId)),
+    requestGetProduct: (productId) => dispatch(ProductActions.requestGetProduct(productId))
   };
 };
 

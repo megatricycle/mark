@@ -12,3 +12,28 @@ export const getProductById = createSelector(
   ],
     (products, selectedProductId) => products.filter(product => product.id === selectedProductId)[0] || null
 );
+
+export const filterProducts = (state, query) => createSelector(
+  [
+    (state) => state.products.products
+  ],
+    (products) => {
+      if (query === '') {
+        return [];
+      }
+
+      const nameResults = products.filter(product =>
+        product.name.toLowerCase()
+          .indexOf(query.toLowerCase()) === 0
+      );
+      const providerResults = products.filter(product =>
+        product.user.username.toLowerCase()
+          .indexOf(query.toLowerCase()) === 0
+      );
+
+      return [
+        ...nameResults,
+        ...providerResults
+      ];
+    }
+)(state);

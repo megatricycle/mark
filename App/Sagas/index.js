@@ -9,6 +9,8 @@ import { LoginTypes } from '../Redux/LoginRedux';
 import { UserTypes } from '../Redux/UserRedux';
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux';
 import { ProductsTypes } from '../Redux/ProductsRedux';
+import { SearchTypes } from '../Redux/SearchRedux';
+import { ProductTypes } from '../Redux/ProductRedux';
 
 /* ------------- Sagas ------------- */
 
@@ -16,7 +18,8 @@ import { startup } from './StartupSagas';
 import { login, logout } from './LoginSagas';
 import { signup } from './SignupSagas';
 import { openScreen } from './OpenScreenSagas';
-import { syncProducts, getProductManuals, getProductManual } from './ProductsSagas';
+import { syncProducts, getProductManuals, getProductManual, syncProduct } from './ProductsSagas';
+import { searchProducts } from './SearchSagas';
 
 /* ------------- API ------------- */
 
@@ -35,6 +38,8 @@ export default function * root () {
     takeLatest(SignupTypes.REQUEST_SIGNUP, signup, api),
     takeLatest(ProductsTypes.REQUEST_SYNC_SUBSCRIPTIONS, syncProducts, api),
     takeLatest(ProductsTypes.REQUEST_UPDATE_PRODUCT, getProductManuals, api),
-    takeLatest(ProductsTypes.REQUEST_SET_PRODUCT_MANUAL, getProductManual, api)
+    takeLatest(ProductsTypes.REQUEST_SET_PRODUCT_MANUAL, getProductManual, api),
+    takeLatest(SearchTypes.REQUEST_SEARCH_PRODUCTS, searchProducts, api),
+    takeLatest(ProductTypes.REQUEST_GET_PRODUCT, syncProduct, api)
   ];
 }

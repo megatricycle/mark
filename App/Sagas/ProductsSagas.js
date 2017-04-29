@@ -24,7 +24,19 @@ export function * syncProducts (api, { userId }) {
         manuals: []
       }));
 
-    yield put(ProductsActions.syncSubscriptions(products));
+    yield put(ProductsActions.syncProducts(products));
+  } else {
+    // @TODO: handle error
+  }
+}
+
+export function * syncProduct (api, { productId }) {
+  const response = yield call(api.getProduct, productId);
+
+  if (response.ok) {
+    const product = response.data;
+
+    yield put(ProductsActions.syncProducts([product]));
   } else {
     // @TODO: handle error
   }

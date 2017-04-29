@@ -5,8 +5,9 @@ import { SearchBar, Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import NavBarActions from '../Redux/NavBarRedux';
 import SearchActions from '../Redux/SearchRedux';
+import ProductActions from '../Redux/ProductRedux';
 import SearchResults from '../Components/SearchResults';
-import { getProductById } from '../Selectors/ProductsSelector';
+import { getProductById, filterProducts } from '../Selectors/ProductsSelector';
 import { getManual } from '../Selectors/ManualsSelector';
 
 import styles from './Styles/CustomNavBarStyles';
@@ -22,9 +23,10 @@ class NavBar extends React.Component {
   }
 
   handleChangeText (term) {
-    const { setSearchTerm } = this.props;
+    const { setSearchTerm, requestSearchProducts } = this.props;
 
     setSearchTerm(term);
+    requestSearchProducts(term);
   }
 
   componentWillMount () {
@@ -50,6 +52,7 @@ class NavBar extends React.Component {
     const { scene } = this.props.navigation;
     const { title } = this.props.navBar;
     const { term } = this.props.search;
+    const { searchResults, setSelectedProduct } = this.props;
     const { handleChangeText } = this;
 
     return (
@@ -79,7 +82,10 @@ class NavBar extends React.Component {
         </View>
         {
           term !== '' && screensWithTitle.indexOf(scene.title) === -1
-            ? <SearchResults />
+            ? <SearchResults
+              products={searchResults}
+              setSelectedProduct={setSelectedProduct}
+              />
             : <View />
         }
       </View>
@@ -93,7 +99,8 @@ const mapStateToProps = (state) => {
     navBar: state.navBar,
     search: state.search,
     selectedProduct: getProductById(state),
-    selectedManual: getManual(state)
+    selectedManual: getManual(state),
+    searchResults: filterProducts(state, state.search.term)
   };
 };
 
@@ -101,7 +108,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setTitle: (title) => dispatch(NavBarActions.setTitle(title)),
     setSearchTerm: (term) => dispatch(SearchActions.setSearchTerm(term)),
-    resetSearch: () => dispatch(SearchActions.resetSearch())
+    resetSearch: () => dispatch(SearchActions.resetSearch()),
+    requestSearchProducts: (query) => dispatch(SearchActions.requestSearchProducts(query)),
+    setSelectedProduct: (productId) => dispatch(ProductActions.setSelectedProduct(productId))
   };
 };
 

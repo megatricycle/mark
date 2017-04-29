@@ -65,11 +65,17 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
   const getUserSubscriptions = (userId) =>
     api.get(`users/${userId}/subscriptions`);
 
+  const getProduct = (productId) =>
+    api.get(`products/${productId}`);
+
   const getProductManuals = (productId) =>
     api.get(`products/${productId}/manuals`);
 
   const getProductManual = (productId, manualId) =>
     api.get(`products/${productId}/manuals/${manualId}`);
+
+  const searchProducts = (query) =>
+    api.get('products', { query });
 
   // ------
   // STEP 3
@@ -90,8 +96,10 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
     whoami,
     signup,
     getUserSubscriptions,
+    getProduct,
     getProductManuals,
-    getProductManual
+    getProductManual,
+    searchProducts
   };
 };
 
