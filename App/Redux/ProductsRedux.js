@@ -10,7 +10,9 @@ const { Types, Creators } = createActions({
   requestUpdateProduct: ['productId'],
   setProductManuals: ['productId', 'manuals'],
   requestSetProductManual: ['productId', 'manualId'],
-  setProductManual: ['productId', 'newManual']
+  setProductManual: ['productId', 'newManual'],
+  requestSubscribeProduct: ['userId', 'productId'],
+  requestUnsubscribeProduct: ['userId', 'productId']
 });
 
 export const ProductsTypes = Types;

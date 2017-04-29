@@ -77,6 +77,12 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
   const searchProducts = (query) =>
     api.get('products', { query });
 
+  const subscribeProduct = (userId, productId) =>
+    api.post(`users/${userId}/subscriptions/${productId}`);
+
+  const unsubscribeProduct = (userId, productId) =>
+    api.delete(`users/${userId}/subscriptions/${productId}`);
+
   // ------
   // STEP 3
   // ------
@@ -99,7 +105,9 @@ const create = (baseURL = 'http://192.168.1.27:8000') => {
     getProduct,
     getProductManuals,
     getProductManual,
-    searchProducts
+    searchProducts,
+    subscribeProduct,
+    unsubscribeProduct
   };
 };
 

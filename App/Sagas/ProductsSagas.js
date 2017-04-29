@@ -65,3 +65,28 @@ export function * getProductManual (api, { productId, manualId }) {
     // @TODO: handle error
   }
 }
+
+export function * subscribeProduct (api, { userId, productId }) {
+  const response = yield call(api.subscribeProduct, userId, productId);
+
+  if (response.ok) {
+    const product = response.data;
+
+    yield put(ProductsActions.syncProducts([product]));
+    yield put(ProductsActions.requestUpdateProduct(productId));
+  } else {
+    // @TODO: handle error
+  }
+}
+
+export function * unsubscribeProduct (api, { userId, productId }) {
+  const response = yield call(api.unsubscribeProduct, userId, productId);
+
+  if (response.ok) {
+    const product = response.data;
+
+    yield put(ProductsActions.syncProducts([product]));
+  } else {
+    // @TODO: handle error
+  }
+}

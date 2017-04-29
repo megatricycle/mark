@@ -18,7 +18,14 @@ import { startup } from './StartupSagas';
 import { login, logout } from './LoginSagas';
 import { signup } from './SignupSagas';
 import { openScreen } from './OpenScreenSagas';
-import { syncProducts, getProductManuals, getProductManual, syncProduct } from './ProductsSagas';
+import {
+  syncProducts,
+  getProductManuals,
+  getProductManual,
+  syncProduct,
+  subscribeProduct,
+  unsubscribeProduct
+} from './ProductsSagas';
 import { searchProducts } from './SearchSagas';
 
 /* ------------- API ------------- */
@@ -40,6 +47,8 @@ export default function * root () {
     takeLatest(ProductsTypes.REQUEST_UPDATE_PRODUCT, getProductManuals, api),
     takeLatest(ProductsTypes.REQUEST_SET_PRODUCT_MANUAL, getProductManual, api),
     takeLatest(SearchTypes.REQUEST_SEARCH_PRODUCTS, searchProducts, api),
-    takeLatest(ProductTypes.REQUEST_GET_PRODUCT, syncProduct, api)
+    takeLatest(ProductTypes.REQUEST_GET_PRODUCT, syncProduct, api),
+    takeLatest(ProductsTypes.REQUEST_SUBSCRIBE_PRODUCT, subscribeProduct, api),
+    takeLatest(ProductsTypes.REQUEST_UNSUBSCRIBE_PRODUCT, unsubscribeProduct, api)
   ];
 }

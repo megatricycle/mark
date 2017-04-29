@@ -32,6 +32,22 @@ class ProductScreen extends React.Component {
     Actions.manualScreen();
   }
 
+  handlePressSubscribe = () => {
+    const { selectedProductId: productId } = this.props.product;
+    const { userId } = this.props.user;
+    const { requestSubscribeProduct } = this.props;
+
+    requestSubscribeProduct(userId, productId);
+  }
+
+  handlePressUnsubscribe = () => {
+    const { selectedProductId: productId } = this.props.product;
+    const { userId } = this.props.user;
+    const { requestUnsubscribeProduct } = this.props;
+
+    requestUnsubscribeProduct(userId, productId);
+  }
+
   componentWillMount () {
     const { hideDescription, requestUpdateProduct, requestGetProduct } = this.props;
     const { selectedProductId, product } = this.props.product;
@@ -47,7 +63,7 @@ class ProductScreen extends React.Component {
   render () {
     const { showDescription } = this.props;
     const { isDescriptionShown, product } = this.props.product;
-    const { handlePressManual } = this;
+    const { handlePressManual, handlePressSubscribe, handlePressUnsubscribe } = this;
 
     return (
       <View style={styles.contentContainer}>
@@ -64,12 +80,12 @@ class ProductScreen extends React.Component {
                 { product.isSubscribed
                   ? <Button
                     title={'Subscribed!'}
-                    onPress={() => {}}
+                    onPress={handlePressUnsubscribe}
                     buttonStyle={styles.subscribeButton}
                   />
                   : <Button
                     title={'Subscribe'}
-                    onPress={() => {}}
+                    onPress={handlePressSubscribe}
                     buttonStyle={styles.subscribeButton}
                   />
                 }
@@ -101,7 +117,7 @@ class ProductScreen extends React.Component {
           </View>
 
           <View>
-            {product.manuals && product.manuals.length > 0
+            {product.isSubscribed && product.manuals && product.manuals.length > 0
               ? <View>
                 <Text style={styles.manualsHeader}>Manuals</Text>
                 <List containerStyle={styles.listContainer}>
@@ -126,7 +142,8 @@ class ProductScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    product: { ...state.product, product: getProductById(state) }
+    product: { ...state.product, product: getProductById(state) },
+    user: state.user
   };
 };
 
@@ -136,7 +153,9 @@ const mapDispatchToProps = (dispatch) => {
     showDescription: () => dispatch(ProductActions.showDescription()),
     setSelectedManual: (manualId) => dispatch(ManualActions.setSelectedManual(manualId)),
     requestUpdateProduct: (productId) => dispatch(ProductsActions.requestUpdateProduct(productId)),
-    requestGetProduct: (productId) => dispatch(ProductActions.requestGetProduct(productId))
+    requestGetProduct: (productId) => dispatch(ProductActions.requestGetProduct(productId)),
+    requestSubscribeProduct: (userId, productId) => dispatch(ProductsActions.requestSubscribeProduct(userId, productId)),
+    requestUnsubscribeProduct: (userId, productId) => dispatch(ProductsActions.requestUnsubscribeProduct(userId, productId))
   };
 };
 
