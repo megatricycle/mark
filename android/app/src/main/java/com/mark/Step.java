@@ -3,15 +3,18 @@ package com.mark;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Step implements Parcelable {
     private String instruction;
     private String imageTarget;
-    private String model;
+    private List<ObjectModel> objects;
 
-    public Step(String instruction, String imageTarget, String model) {
+    public Step(String instruction, String imageTarget, List<ObjectModel> objects) {
         this.instruction = instruction;
         this.imageTarget = imageTarget;
-        this.model = model;
+        this.objects = objects;
     }
 
     public String getInstruction() {
@@ -22,14 +25,19 @@ public class Step implements Parcelable {
         return imageTarget;
     }
 
-    public String getModel() {
-        return model;
+    public List<ObjectModel> getObjects() {
+        return objects;
     }
 
     protected Step(Parcel in) {
         instruction = in.readString();
         imageTarget = in.readString();
-        model = in.readString();
+        if (in.readByte() == 0x01) {
+            objects = new ArrayList<ObjectModel>();
+            in.readList(objects, ObjectModel.class.getClassLoader());
+        } else {
+            objects = null;
+        }
     }
 
     @Override
@@ -41,7 +49,12 @@ public class Step implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(instruction);
         dest.writeString(imageTarget);
-        dest.writeString(model);
+        if (objects == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(objects);
+        }
     }
 
     @SuppressWarnings("unused")

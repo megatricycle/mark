@@ -12,6 +12,7 @@
 
 import { call, put } from 'redux-saga/effects';
 import ProductsActions from '../Redux/ProductsRedux';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 export function * syncProducts (api, { userId }) {
   const response = yield call(api.getUserSubscriptions, userId);
@@ -60,7 +61,32 @@ export function * getProductManual (api, { productId, manualId }) {
   if (response.ok) {
     const manual = response.data;
 
-    yield put(ProductsActions.setProductManual(productId, manual));
+    const imageURLs = manual.steps.map(step => step.imageTarget);
+
+    const promises = imageURLs.map(url =>
+      RNFetchBlob
+        .config({
+          fileCache: true,
+          appendExt: url.substring(url.lastIndexOf('.')),
+          trusty: true,
+          path: RNFetchBlob.fs.dirs.CacheDir + url
+        })
+        .fetch('GET', 'http://192.168.1.13:8000' + url, {})
+    );
+
+    const result = yield Promise.all(promises);
+
+    const updatedManual = {
+      ...manual,
+      steps: manual.steps.map((step, i) => ({
+        ...step,
+        imageTarget: result[i].path()
+      }))
+    };
+
+    console.tron.log(updatedManual);
+
+    yield put(ProductsActions.setProductManual(productId, updatedManual));
   } else {
     // @TODO: handle error
   }

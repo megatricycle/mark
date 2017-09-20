@@ -33,9 +33,21 @@ public class ARActivityModule extends ReactContextBaseJavaModule {
 
             String instruction = stepObject.getString("instruction");
             String imageTarget = stepObject.getString("imageTarget");
-            String model = stepObject.getString("model");
+            ReadableArray objects = stepObject.getArray("objects");
+            ArrayList<ObjectModel> objectModels = new ArrayList<ObjectModel>();
 
-            serializedSteps.add(new Step(instruction, imageTarget, model));
+            for(int j = 0; j < objects.size(); j++) {
+                ReadableMap objectModel = objects.getMap(j);
+
+                String type = objectModel.getString("type");
+                float x = (float)objectModel.getDouble("x");
+                float y = (float)objectModel.getDouble("y");
+                float z = (float)objectModel.getDouble("z");
+
+                objectModels.add(new ObjectModel(type, x, y, z));
+            }
+
+            serializedSteps.add(new Step(instruction, imageTarget, objectModels));
         }
 
         Activity context = getCurrentActivity();
