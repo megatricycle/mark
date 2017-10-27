@@ -16,7 +16,6 @@ import { Actions } from 'react-native-router-flux';
 
 // Styles
 import styles from './Styles/ProductScreenStyle';
-import { Images } from '../Themes';
 
 class ProductScreen extends React.Component {
   constructor (props) {
@@ -70,7 +69,9 @@ class ProductScreen extends React.Component {
         <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.upperPart}>
             <Image
-              source={Images.dummy}
+              source={{
+                uri: 'http://192.168.1.13:8000' + product.image
+              }}
               style={styles.productImage}
             />
             <View style={styles.productBasicInfo}>

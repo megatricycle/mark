@@ -10,7 +10,6 @@ import _ from 'lodash';
 
 // Styles
 import styles from './Styles/SubscriptionsStyle';
-import { Images } from '../Themes';
 
 class Subscriptions extends React.Component {
   constructor (props) {
@@ -49,7 +48,7 @@ class Subscriptions extends React.Component {
               {group.products.map((product) =>
                 <ListItem
                   roundAvatar
-                  avatar={Images.dummy}
+                  avatar={'http://192.168.1.13:8000' + product.image}
                   key={product.id}
                   title={product.name}
                   onPress={() => { handleProductPress(product.id); }}

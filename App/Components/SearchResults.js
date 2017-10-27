@@ -4,7 +4,6 @@ import { List, ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 import styles from './Styles/SearchResultsStyle';
-import { Images } from '../Themes';
 
 export default class SearchResults extends React.Component {
   handleProductPress = (productId) => {
@@ -29,7 +28,7 @@ export default class SearchResults extends React.Component {
                 {products.map(product =>
                   <ListItem
                     key={product.id}
-                    avatar={Images.dummy}
+                    avatar={'http://192.168.1.13:8000' + product.image}
                     roundAvatar
                     title={product.name}
                     subtitle={<Text style={styles.subtitle}>{product.user.username}</Text>}
