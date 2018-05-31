@@ -45,6 +45,7 @@ export default class Login extends React.Component {
         <View style={styles.center}>
           <Image
             source={Images.logo}
+            style={styles.logo}
           />
         </View>
         <TextField

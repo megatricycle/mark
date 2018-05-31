@@ -3,6 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
+import { API_URL } from '../Services/Api';
 import styles from './Styles/SearchResultsStyle';
 
 export default class SearchResults extends React.Component {
@@ -25,10 +26,10 @@ export default class SearchResults extends React.Component {
               <Text style={styles.resultsHeader}>Results</Text>
 
               <List containerStyle={styles.listContainer}>
-                {products.map(product =>
+                {products.map((product, i) =>
                   <ListItem
                     key={product.id}
-                    avatar={'http://192.168.1.13:8000' + product.image}
+                    avatar={API_URL + product.image}
                     roundAvatar
                     title={product.name}
                     subtitle={<Text style={styles.subtitle}>{product.user.username}</Text>}

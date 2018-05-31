@@ -13,6 +13,7 @@ import ProductActions from '../Redux/ProductRedux';
 import ProductsActions from '../Redux/ProductsRedux';
 import ManualActions from '../Redux/ManualRedux';
 import { Actions } from 'react-native-router-flux';
+import { API_URL } from '../Services/Api';
 
 // Styles
 import styles from './Styles/ProductScreenStyle';
@@ -70,7 +71,7 @@ class ProductScreen extends React.Component {
           <View style={styles.upperPart}>
             <Image
               source={{
-                uri: 'http://192.168.1.13:8000' + product.image
+                uri: API_URL + product.image
               }}
               style={styles.productImage}
             />

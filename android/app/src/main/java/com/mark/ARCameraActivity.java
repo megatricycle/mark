@@ -46,6 +46,8 @@ public class ARCameraActivity extends ARActivity {
 
         key.setAPIKey("DvGgqRdRiqcLcaMF+C74R6sm+Of21GxnfSClWVskgcs/McOz6egP/eKBQNjeyEuUSDZ9b/t1kDmZ6pKSyHvPBELJxSq+fDZv4+6Q+YTwCps2BGXwafiIZ1XYUsrFuPgkGpu2arzufThmpox+A31UU++Sjr0cVCtfSgnTz94Dv04/kfgHsKMPumbvKsRkyKHySIJ0B6Lg8NAi2P11ozysgMiV1fIOvwUK+TOnmiXDDmzwuVrnQKe9eAEYpXm0fJUpCpojCbZdPyxAo6MxIFnDZFINxTbGRbZ4CqmMxTuvv6Sx1GowXttyMBahK6iYzxbOBh+s1aVB8LCjvv6+PjH86J/sTtU/C04L7pa72KyEQRUSxaT6IRUfRqMT0bzgv/8eCSwzpVwilqWZWAB/6M027/iVXWsOWVb781JmYX1IqJzSC4OG70ACteWqlzlaIg+MDDcHkjPmFOS6ejxLxNkOezsxLGlvVrkP24NFIgxHb99iGP+Q2u8Gj0M4Jmvr4UY4Bx11AAaM7LVOCw76gFLS/w5AK4F2r3PZboEEL8/hExZezIOHyGMJeFOtDGE0oTiuvd/DlnuCX5vw4AcsJIPpR0a4ofcI7Wt+LUjSNpWYhkTVyYFtS5y/C5Ew8s6m75pRr5OFCcbMfrzykYIIUE3K1ZEIU9cdDa1qynXeNap2RoI=");
 
+        Log.d("DEBUG", "licenseKeyIsValid: " + key.licenseKeyIsValid());
+
         setContentView(R.layout.activity_sampling);
 
         closeButton = (ImageButton) findViewById(R.id.imageButton3);
@@ -89,7 +91,7 @@ public class ARCameraActivity extends ARActivity {
 
                 node.setVisible(visibility);
 
-                Log.d("DEBUG", node.getName() + " visible: " + visibility);
+                // Log.d("DEBUG", node.getName() + " visible: " + visibility);
             }
         }
     }
@@ -148,7 +150,7 @@ public class ARCameraActivity extends ARActivity {
                 trackable.loadFromPath(step.getImageTarget(), true);
                 trackable.setExtensible(true);
                 newFlag = true;
-                Log.d("DEBUG", "New trackable: " + name);
+                Log.d("DEBUG", "Trackable: " + trackable.getWidth() + "x" + trackable.getHeight());
             }
             else {
                 trackable = this.trackableManager.findTrackable(name);
@@ -174,10 +176,19 @@ public class ARCameraActivity extends ARActivity {
 
                 modelNode.rotateByDegrees(90,1,0,0);
 
-                float multiplier = 40f;
+                float size_multiplier = 50f;
+                float position_multiplier = 80f;
 
-                modelNode.setPosition(objectModel.getX() * multiplier, objectModel.getZ() * multiplier, objectModel.getY() * multiplier);
-                modelNode.scaleByUniform(50f);
+                float editorWidth = trackable.getWidth() > trackable.getHeight() ? 12.5f : trackable.getWidth() / trackable.getHeight() * 12.5f;
+                float editorHeight = trackable.getHeight() > trackable.getWidth() ? 12.5f : trackable.getHeight() / trackable.getWidth() * 12.5f;
+
+                modelNode.setPosition(
+                    translate(objectModel.getX(), 0, editorWidth, 0, trackable.getWidth() / 2),
+                    translate(objectModel.getZ(), 0, editorHeight, 0, trackable.getHeight() / 2),
+                    objectModel.getY() * position_multiplier
+                );
+                modelNode.scaleByUniform(size_multiplier);
+
 
                 // Add model node to image trackable
                 trackable.getWorld().addChild(modelNode);
@@ -199,5 +210,9 @@ public class ARCameraActivity extends ARActivity {
     @Override
     public int getRotation() {
         return Surface.ROTATION_90;
+    }
+
+    private float translate(float x, float src_start, float src_end, float dest_start, float dest_end) {
+        return (x / (src_end - src_start)) * (dest_end - dest_start);
     }
 }

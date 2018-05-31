@@ -20,7 +20,7 @@ export default Creators;
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  currentTab: TabNames.DASHBOARD
+  currentTab: TabNames.SUBSCRIPTIONS
 });
 
 /* ------------- Reducers ------------- */

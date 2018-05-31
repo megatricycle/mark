@@ -10,6 +10,7 @@ export default class Splash extends React.Component {
       <View style={styles.container}>
         <Image
           source={Images.logo}
+          style={styles.logo}
         />
       </View>
     );

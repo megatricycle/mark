@@ -23,5 +23,13 @@ export default StyleSheet.create({
     marginBottom: Metrics.baseMargin,
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5
+  },
+  noSubscriptionsContainer: {
+    marginTop: 50
+  },
+  noSubscriptions: {
+    fontSize: 25,
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.4)'
   }
 });

@@ -52,19 +52,6 @@ class HomeScreen extends React.Component {
           <Tab
             titleStyle={styles.tabTitle}
             selectedTitleStyle={styles.selectedTitle}
-            selected={currentTab === TabNames.DASHBOARD}
-            title={currentTab === TabNames.DASHBOARD ? 'Dashboard' : null}
-            renderIcon={() => <Icon containerStyle={styles.icon} color={'#5e6977'} name='dashboard' size={33} />}
-            renderSelectedIcon={() => <Icon color={Colors.accent} name='dashboard' size={30} />}
-            onPress={() => { changeTab(TabNames.DASHBOARD); }}
-          >
-            <View style={[styles.homepageView]}>
-              <Dashboard />
-            </View>
-          </Tab>
-          <Tab
-            titleStyle={styles.tabTitle}
-            selectedTitleStyle={styles.selectedTitle}
             selected={currentTab === TabNames.SUBSCRIPTIONS}
             title={currentTab === TabNames.SUBSCRIPTIONS ? 'Subscriptions' : null}
             renderIcon={() => <Icon containerStyle={styles.icon} color={'#5e6977'} name='view-module' size={33} />}

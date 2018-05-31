@@ -12,5 +12,9 @@ export default StyleSheet.create({
   },
   loginButton: {
     marginTop: Metrics.baseMargin
+  },
+  logo: {
+    width: 200,
+    height: 200
   }
 });

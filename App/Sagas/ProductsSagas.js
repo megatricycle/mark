@@ -14,6 +14,8 @@ import { call, put } from 'redux-saga/effects';
 import ProductsActions from '../Redux/ProductsRedux';
 import RNFetchBlob from 'react-native-fetch-blob';
 
+import { API_URL } from '../Services/Api';
+
 export function * syncProducts (api, { userId }) {
   const response = yield call(api.getUserSubscriptions, userId);
 
@@ -71,7 +73,7 @@ export function * getProductManual (api, { productId, manualId }) {
           trusty: true,
           path: RNFetchBlob.fs.dirs.CacheDir + url
         })
-        .fetch('GET', 'http://192.168.1.13:8000' + url, {})
+        .fetch('GET', API_URL + url, {})
     );
 
     const result = yield Promise.all(promises);

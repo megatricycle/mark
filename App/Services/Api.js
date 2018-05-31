@@ -1,8 +1,11 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce';
 
+export const API_URL = 'http://192.168.1.13:8000';
+
 // our "constructor"
-const create = (baseURL = 'http://192.168.1.13:8000') => {
+const create = (baseURL = API_URL) => {
+    
     // ------
     // STEP 1
     // ------

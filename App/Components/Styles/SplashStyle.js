@@ -7,5 +7,9 @@ export default StyleSheet.create({
     backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  logo: {
+    width: 300,
+    height: 300
   }
 });

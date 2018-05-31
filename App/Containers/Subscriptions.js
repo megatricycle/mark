@@ -8,6 +8,8 @@ import ProductActions from '../Redux/ProductRedux';
 import ProductsActions from '../Redux/ProductsRedux';
 import _ from 'lodash';
 
+import { API_URL } from '../Services/Api';
+
 // Styles
 import styles from './Styles/SubscriptionsStyle';
 
@@ -41,22 +43,27 @@ class Subscriptions extends React.Component {
 
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {groupedProducts.map((group) =>
-          <View key={group.provider}>
-            <Text style={styles.providerName}>{group.provider}</Text>
-            <List containerStyle={styles.list}>
-              {group.products.map((product) =>
-                <ListItem
-                  roundAvatar
-                  avatar={'http://192.168.1.13:8000' + product.image}
-                  key={product.id}
-                  title={product.name}
-                  onPress={() => { handleProductPress(product.id); }}
-                />
-              )}
-            </List>
-          </View>
-        )}
+        { groupedProducts.length > 0 ?
+            groupedProducts.map((group) =>
+              <View key={group.provider}>
+                <Text style={styles.providerName}>{group.provider}</Text>
+                <List containerStyle={styles.list}>
+                  {group.products.map((product) =>
+                    <ListItem
+                      roundAvatar
+                      avatar={API_URL + product.image}
+                      key={product.id}
+                      title={product.name}
+                      onPress={() => { handleProductPress(product.id); }}
+                    />
+                  )}
+                </List>
+              </View>
+            )
+        :   <View style={styles.noSubscriptionsContainer}>
+              <Text style={styles.noSubscriptions}>No subscriptions</Text>
+            </View>
+        }
       </ScrollView>
     );
   }
