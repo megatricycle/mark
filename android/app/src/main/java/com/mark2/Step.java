@@ -1,4 +1,4 @@
-package com.mark;
+package com.mark2;
 
 import android.os.Parcel;
 import android.os.Parcelable;

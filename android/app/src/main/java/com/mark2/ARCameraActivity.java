@@ -1,4 +1,4 @@
-package com.mark;
+package com.mark2;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -44,7 +44,7 @@ public class ARCameraActivity extends ARActivity {
 
         super.onCreate(savedInstanceState);
 
-        key.setAPIKey("DvGgqRdRiqcLcaMF+C74R6sm+Of21GxnfSClWVskgcs/McOz6egP/eKBQNjeyEuUSDZ9b/t1kDmZ6pKSyHvPBELJxSq+fDZv4+6Q+YTwCps2BGXwafiIZ1XYUsrFuPgkGpu2arzufThmpox+A31UU++Sjr0cVCtfSgnTz94Dv04/kfgHsKMPumbvKsRkyKHySIJ0B6Lg8NAi2P11ozysgMiV1fIOvwUK+TOnmiXDDmzwuVrnQKe9eAEYpXm0fJUpCpojCbZdPyxAo6MxIFnDZFINxTbGRbZ4CqmMxTuvv6Sx1GowXttyMBahK6iYzxbOBh+s1aVB8LCjvv6+PjH86J/sTtU/C04L7pa72KyEQRUSxaT6IRUfRqMT0bzgv/8eCSwzpVwilqWZWAB/6M027/iVXWsOWVb781JmYX1IqJzSC4OG70ACteWqlzlaIg+MDDcHkjPmFOS6ejxLxNkOezsxLGlvVrkP24NFIgxHb99iGP+Q2u8Gj0M4Jmvr4UY4Bx11AAaM7LVOCw76gFLS/w5AK4F2r3PZboEEL8/hExZezIOHyGMJeFOtDGE0oTiuvd/DlnuCX5vw4AcsJIPpR0a4ofcI7Wt+LUjSNpWYhkTVyYFtS5y/C5Ew8s6m75pRr5OFCcbMfrzykYIIUE3K1ZEIU9cdDa1qynXeNap2RoI=");
+        key.setAPIKey("f8F8oS92HU0ve01zorwGvK2YsN5FnvV1EUt8MFJGFrFn6org4Vc39StRrCllHZ5PWVNHjaCcjjNM2YrzjDhDWBbll6ImIr3vMOfoSGTdbdVSl3YwAj19qSC+j4iCOwp5Oug9myXD3xx8iro0SvvUWk2tdyE99iCs6A++uOCB1TcIlQwXuNsc8y5AUtN+HvUveaWz6E9LKVHXotQBArZWDkilOOed9OafePyA6mbdxaWa3jLyNUkmB+zv4iC9HnN1FWj2UrpSavLTpKTWIDeZ6X8l3iiZXyIoDaYpuccrfDyPdzb95qxE/22+lEQ1JLQADZA8o6Vtx9kMfT/7t7Xzph5S5z3Z6nzWku0m22KuoZd0FpkJckNboo4dSUwK1PqWkPd32IWWFsAr1LVwQ7ahsaeh/CdaQVpra8D9sd/VVKhCxpwpi3q0su1x94OLETkV9D9wVnbezPLa4mstqm/OQ7cs1Vs6yKUYoZzwopJtdK3yiq4kDBY+LMLpbZxmUTAhxA6of9tO+/AD2lvt2tN8xUGiLR2WT0OQYYBXCnZE/zJr8rEFbMIiag763zXG7S1o3n4E/Bh1k8wFNAhOG3lvm8TKTt+XE/htfSVHQsXte1U+AGpZEh8NAf1SQcG7HrsUh05At+H8b5Jq/7OKhTbBjLZT/sY4/UyxIaSGctygT3M=");
 
         Log.d("DEBUG", "licenseKeyIsValid: " + key.licenseKeyIsValid());
 

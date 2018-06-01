@@ -1,4 +1,4 @@
-package com.mark;
+package com.mark2;
 
 import java.io.Serializable;
 

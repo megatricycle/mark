@@ -1,4 +1,4 @@
-package com.mark;
+package com.mark2;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
